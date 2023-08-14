@@ -67,7 +67,7 @@ const RegisterPage = (props: Props) => {
         errors={errors}
         required
       />
-      <button type="submit">Submit</button>
+
       <Button full label="Create account" />
       <div
         className="

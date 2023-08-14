@@ -12,7 +12,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 type Props = {};
 
 const LoginPage = (props: Props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { signIn } = useAuth();
   const router = useRouter();
   const {
@@ -27,8 +27,9 @@ const LoginPage = (props: Props) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true);
+    setLoading(true);
     signIn(data.email, data.password);
+    setLoading(false);
   };
 
   return (
@@ -40,7 +41,7 @@ const LoginPage = (props: Props) => {
       <Input
         id="email"
         label="Email Address"
-        disabled={isLoading}
+        disabled={loading}
         register={register}
         errors={errors}
         required
@@ -48,12 +49,12 @@ const LoginPage = (props: Props) => {
       <Input
         id="password"
         label="Password"
-        disabled={isLoading}
+        disabled={loading}
         register={register}
         errors={errors}
         required
       />
-      <Button full label="Sign in" />
+      <Button disabled={loading} loading={loading} full label="Sign in" />
       <div
         className="
       text-neutral-500 text-center mt-4 font-medium"
