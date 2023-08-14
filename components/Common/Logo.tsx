@@ -15,10 +15,10 @@ const Logo: FC<LogoProps> = ({ className }) => {
           className
         )}
       >
-        <span className="text-[#ffcbc3] group-hover:text-black transition-all duration-300">
+        <span className="text-[#df79fb] group-hover:text-black transition-all duration-300">
           yum
         </span>
-        <span className="text-black group-hover:text-[#ffcbc3] transition-all duration-300">
+        <span className="text-black group-hover:text-[#df79fb] transition-all duration-300">
           yumz
         </span>
       </div>

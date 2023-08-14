@@ -29,7 +29,7 @@ function Button({
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`relative disabled:opacity-80 disabled:cursor-not-allowed rounded-full hover:opacity-80 transition px-5 ${
+      className={`relative disabled:opacity-80 disabled:cursor-not-allowed font-bold rounded-full hover:opacity-80 transition px-5 ${
         full ? 'w-full' : ''
       } ${outline ? 'bg-white' : 'bg-black'} ${outline ? '' : 'border-black'} ${
         outline ? 'text-black' : 'text-white'

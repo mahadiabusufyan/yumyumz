@@ -1,9 +1,10 @@
 import '../styles/globals.css';
 import type { Metadata } from 'next';
-import { Syne } from 'next/font/google';
+import { Poltawski_Nowy } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
+import { AuthProvider } from '@/hooks/useAuth';
 
-const syne = Syne({ subsets: ['latin'] });
+const poltawski_nowy = Poltawski_Nowy({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,9 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={syne.className}>
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={poltawski_nowy.className}>
+        <AuthProvider>{children}</AuthProvider>
         <Analytics />
       </body>
     </html>
