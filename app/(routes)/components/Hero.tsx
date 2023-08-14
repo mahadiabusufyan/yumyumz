@@ -25,7 +25,7 @@ const Hero = (props: Props) => {
     <div className="w-full h-[45vh] lg:h-[60vh] flex items-center justify-center px-3">
       <div className="bg-[#f3def9] h-full container rounded-3xl  relative px-3 flex flex-col lg:flex-row w-full">
         <div className="lg:w-1/2 text-center w-full lg:text-left flex flex-col items-center justify-center lg:pl-10 lg:items-start gap-5 h-full">
-          <h3 className="text-6xl font-medium">
+          <h3 className="text-4xl lg:text-6xl font-medium">
             The Recipe <br></br>Community
           </h3>
           <p className="text-xl">
