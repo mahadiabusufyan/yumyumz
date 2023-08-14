@@ -7,16 +7,11 @@ interface LogoProps {
 }
 
 const Logo: FC<LogoProps> = ({ className }) => {
-  const defaultColors = {
-    base: 'text-blue-500',
-    hover: 'hover:text-red-500',
-  };
-
   return (
     <Link href={'/'}>
       <div
         className={clsx(
-          'text-2xl font-bold cursor-pointer transition-all duration-300 group',
+          'text-2xl font-bold cursor-pointer transition-all duration-300 group flex items-center',
           className
         )}
       >
@@ -26,7 +21,6 @@ const Logo: FC<LogoProps> = ({ className }) => {
         <span className="text-black group-hover:text-[#ffcbc3] transition-all duration-300">
           yumz
         </span>
-        <span className="text-black text-5xl">.</span>
       </div>
     </Link>
   );

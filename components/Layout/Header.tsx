@@ -15,20 +15,20 @@ const Header = (props: Props) => {
     <header className="z-50 sticky top-0 w-full py-8 duration-300 md:transition-none bg-white">
       <div className="flex items-center justify-center w-full">
         <div className="container flex items-center justify-between w-ful px-3 md:px-0">
-          <div className="flex items-center h-12">
-            <Logo />
-          </div>
-          <div>
+          <Logo />
+          <div className="flex items-center justify-center">
             {isAuthenticated ? (
               <div></div>
             ) : (
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2">
                 <Button
                   onClick={() => router.push('/auth/login')}
                   outline
+                  small
                   label={'Login'}
                 />
                 <Button
+                  small
                   onClick={() => router.push('/auth/register')}
                   label={'Sign up'}
                 />

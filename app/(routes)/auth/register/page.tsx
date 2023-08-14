@@ -68,7 +68,7 @@ const RegisterPage = (props: Props) => {
         required
       />
       <button type="submit">Submit</button>
-      <Button label="Create account" />
+      <Button full label="Create account" />
       <div
         className="
       text-neutral-500 text-center mt-4 font-medium"

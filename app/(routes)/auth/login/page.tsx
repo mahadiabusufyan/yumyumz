@@ -53,7 +53,7 @@ const LoginPage = (props: Props) => {
         errors={errors}
         required
       />
-      <Button label="Sign in" />
+      <Button full label="Sign in" />
       <div
         className="
       text-neutral-500 text-center mt-4 font-medium"
