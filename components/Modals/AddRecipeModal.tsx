@@ -146,7 +146,7 @@ const AddRecipeModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={addRecipeModal.isOpen}
-      title="Share your fun recipe ✨"
+      title="Share your recipe ✨"
       actionLabel={actionLabel}
       onSubmit={handleSubmit(onSubmit)}
       secondaryActionLabel={secondaryActionLabel}

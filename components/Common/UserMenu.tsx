@@ -7,11 +7,13 @@ import { TbDoorExit } from 'react-icons/tb';
 import { VscBook } from 'react-icons/vsc';
 import { RiSettings4Line } from 'react-icons/ri';
 import { RxCaretDown } from 'react-icons/rx';
+import { useRouter } from 'next/navigation';
 
 const UserMenu = () => {
   const { user, logout } = useAuth();
   const [isHovered, setIsHovered] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const router = useRouter();
   const menuRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -47,7 +49,7 @@ const UserMenu = () => {
       >
         <div className="py-0.5 px-1 w-full" role="none">
           <button
-            onClick={logout}
+            onClick={() => router.push('/my-recipes')}
             className="group flex items-center rounded-md space-x-4 px-3 py-3 hover:bg-gray-50 transition-all duration-300 w-full text-[16px]"
             role="menuitem"
           >
@@ -62,7 +64,7 @@ const UserMenu = () => {
         </div>
         <div className="py-0.5 px-1 w-full" role="none">
           <button
-            onClick={logout}
+            onClick={() => router.push('/settings')}
             className="group flex items-center rounded-md space-x-4 px-3 py-3 hover:bg-gray-50 transition-all duration-300 w-full text-[16px]"
             role="menuitem"
           >
