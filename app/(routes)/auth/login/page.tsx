@@ -54,7 +54,7 @@ const LoginPage = (props: Props) => {
         errors={errors}
         required
       />
-      <Button disabled={loading} loading={false} full label="Sign in" />
+      <Button disabled={loading} loading={loading} full label="Sign in" />
       <div
         className="
       text-neutral-500 text-center mt-4 font-medium"

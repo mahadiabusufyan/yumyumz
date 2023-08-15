@@ -12,7 +12,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 type Props = {};
 
 const RegisterPage = (props: Props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
   const router = useRouter();
   const {
@@ -28,9 +28,13 @@ const RegisterPage = (props: Props) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setIsLoading(true);
-    console.log(data);
-    await signUp(data.name, data.email, data.password);
+    setLoading(true);
+    try {
+      console.log(data);
+      await signUp(data.name, data.email, data.password);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -46,7 +50,7 @@ const RegisterPage = (props: Props) => {
       <Input
         id="name"
         label="Full Name"
-        disabled={isLoading}
+        disabled={loading}
         register={register}
         errors={errors}
         required
@@ -54,7 +58,7 @@ const RegisterPage = (props: Props) => {
       <Input
         id="email"
         label="Email Address"
-        disabled={isLoading}
+        disabled={loading}
         register={register}
         errors={errors}
         required
@@ -62,13 +66,18 @@ const RegisterPage = (props: Props) => {
       <Input
         id="password"
         label="Password"
-        disabled={isLoading}
+        disabled={loading}
         register={register}
         errors={errors}
         required
       />
 
-      <Button full label="Create account" />
+      <Button
+        loading={loading}
+        disabled={loading}
+        full
+        label="Create account"
+      />
       <div
         className="
       text-neutral-500 text-center mt-4 font-medium"

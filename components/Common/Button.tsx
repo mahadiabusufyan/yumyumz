@@ -1,6 +1,6 @@
 import React from 'react';
 import { IconType } from 'react-icons';
-import SmallSpinner from './SmallSpinner';
+import SmallLoader from './SmallLoader';
 
 type Props = {
   label: string;
@@ -34,7 +34,7 @@ function Button({
       } ${outline ? 'bg-white' : 'bg-black'} ${outline ? '' : 'border-black'} ${
         outline ? 'text-black' : 'text-white'
       } ${small ? 'text-sm' : 'text-base'} 
-      ${small ? 'py-2.5' : 'py-3'}
+      ${small ? 'py-2' : 'py-3.5'}
        ${small ? '' : ''}`}
     >
       {Icon && (
@@ -43,7 +43,7 @@ function Button({
           className={`absolute left-4 top-3 ${isColor && 'text-blue-600'}`}
         />
       )}
-      {loading ? <SmallSpinner /> : label}
+      {loading ? <SmallLoader /> : label}
     </button>
   );
 }
