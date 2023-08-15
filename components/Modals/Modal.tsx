@@ -110,7 +110,7 @@ const Modal: React.FC<ModalProps> = ({
           z-[100] 
           outline-none 
           focus:outline-none
-          bg-gray-600/70
+          bg-gray-100/70
         "
       >
         <div
@@ -134,7 +134,7 @@ const Modal: React.FC<ModalProps> = ({
               lg:h-auto
               border-0 
               lg:rounded-3xl
-              shadow-lg 
+              drop-shadow-lg 
               relative 
               flex 
               flex-col 
@@ -149,7 +149,7 @@ const Modal: React.FC<ModalProps> = ({
                 className="
                 flex 
                 items-center 
-                p-6
+                p-4
                 rounded-t
                 justify-center
                 relative
@@ -176,9 +176,9 @@ const Modal: React.FC<ModalProps> = ({
                 <div className="text-xl font-medium">{title}</div>
               </div>
               {/*body*/}
-              <div className="relative p-6 flex-auto">{body}</div>
+              <div className="relative p-4 flex-auto">{body}</div>
               {/*footer*/}
-              <div className="flex flex-col gap-2 p-6">
+              <div className="flex flex-col gap-2 p-4">
                 <div
                   className="
                     flex 

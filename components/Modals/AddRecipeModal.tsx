@@ -7,6 +7,8 @@ import Modal from './Modal';
 import Heading from '../Common/Heading';
 import Input from '../Common/Input';
 import useAddRecipeModal from '@/hooks/useAddRecipeModal';
+import { cuisines } from '@/lib/cuisines';
+import CuisineBox from '../Common/CuisineBox';
 
 enum STEPS {
   BASICS = 0,
@@ -35,7 +37,7 @@ const AddRecipeModal = () => {
       title: '',
     },
   });
-
+  const cuisine = watch('cuisine');
   const onBack = () => {
     setStep((value) => value - 1);
   };
@@ -63,6 +65,14 @@ const AddRecipeModal = () => {
     return 'Next';
   }, [step]);
 
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+  };
+
   const secondaryActionLabel = useMemo(() => {
     if (step === STEPS.BASICS) {
       return undefined;
@@ -88,13 +98,24 @@ const AddRecipeModal = () => {
       <div
         className="
           grid 
-          grid-cols-1 
-          md:grid-cols-2 
+          grid-cols-2 
+          md:grid-cols-3 
           gap-3
-          max-h-[50vh]
+          max-h-[40vh]
+          md:max-h-[30vh]
           overflow-y-auto
         "
-      ></div>
+      >
+        {cuisines.map((item) => (
+          <div key={item.label} className="col-span-1">
+            <CuisineBox
+              onClick={(cuisine) => setCustomValue('cuisine', cuisine)}
+              selected={cuisine === item.label}
+              label={item.label}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 
