@@ -1,5 +1,6 @@
 'use client';
 
+import { ReactNode } from 'react';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { BiDollar } from 'react-icons/bi';
 
@@ -12,6 +13,7 @@ interface InputProps {
   required?: boolean;
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
+  children?: ReactNode;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -23,6 +25,7 @@ const Input: React.FC<InputProps> = ({
   register,
   required,
   errors,
+  children,
 }) => {
   return (
     <div className="w-full relative">
@@ -83,6 +86,7 @@ const Input: React.FC<InputProps> = ({
       >
         {label}
       </label>
+      {children}
     </div>
   );
 };

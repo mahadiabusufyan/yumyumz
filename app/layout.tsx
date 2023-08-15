@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Outfit } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import { AuthProvider } from '@/hooks/useAuth';
+import AddRecipeModal from '@/components/Modals/AddRecipeModal';
 
 const outfit = Outfit({ subsets: ['latin'] });
 
@@ -102,7 +103,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={outfit.className}>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <AddRecipeModal />
+          {children}
+        </AuthProvider>
         <Analytics />
       </body>
     </html>

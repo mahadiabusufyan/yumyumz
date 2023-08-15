@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import Button from '../Common/Button';
+import Tooltip from '../Common/Tooltip';
+import useAuth from '@/hooks/useAuth';
 
 interface ModalProps {
   isOpen?: boolean;
@@ -30,6 +32,7 @@ const Modal: React.FC<ModalProps> = ({
   secondaryActionLabel,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     setShowModal(isOpen);
@@ -89,7 +92,7 @@ const Modal: React.FC<ModalProps> = ({
     secondaryAction();
   }, [secondaryAction, disabled]);
 
-  if (!isOpen) {
+  if (!isOpen || !isAuthenticated) {
     return null;
   }
 
@@ -104,23 +107,14 @@ const Modal: React.FC<ModalProps> = ({
           overflow-y-auto 
           fixed 
           inset-0 
-          z-50 
+          z-[100] 
           outline-none 
           focus:outline-none
           bg-gray-600/70
         "
       >
         <div
-          className="
-          relative 
-          w-full
-    lg:w-[50%]
-    xl:w-[30%]
-          my-6
-          mx-auto 
-          h-full 
-          lg:h-auto
-          modal-content
+          className="relative w-full lg:w-[50%] my-6 mx-auto h-full lg:h-auto  modal-content
           "
         >
           {/*content*/}
@@ -139,7 +133,7 @@ const Modal: React.FC<ModalProps> = ({
               h-full
               lg:h-auto
               border-0 
-              lg:rounded 
+              lg:rounded-3xl
               shadow-lg 
               relative 
               flex 
@@ -155,38 +149,43 @@ const Modal: React.FC<ModalProps> = ({
                 className="
                 flex 
                 items-center 
-                p-3
+                p-6
                 rounded-t
                 justify-center
                 relative
-                border-b-[1px]
                 "
               >
                 <button
+                  data-tooltip-id="close-modal"
                   className="
                     p-1
                     border-0 
                     hover:opacity-70
-                    transition
                     absolute
-                    left-5
+                    right-5
+                    hover:bg-gray-100 rounded-full transition duration-300
                   "
                   onClick={handleClose}
                 >
-                  <IoMdClose size={18} />
+                  <IoMdClose
+                    size={25}
+                    className="text-gray-500 group-hover:text-[#DE79FB] transition duration-300"
+                  />
                 </button>
-                <div className="text-lg font-semibold">{title}</div>
+                <Tooltip id="close-modal" content="Close" />
+                <div className="text-xl font-medium">{title}</div>
               </div>
               {/*body*/}
               <div className="relative p-6 flex-auto">{body}</div>
               {/*footer*/}
-              <div className="flex flex-col gap-2 p-3">
+              <div className="flex flex-col gap-2 p-6">
                 <div
                   className="
                     flex 
                     flex-row 
                     items-center 
-                    gap-4 
+                    justify-end
+                    gap-3 
                     w-full
                   "
                 >

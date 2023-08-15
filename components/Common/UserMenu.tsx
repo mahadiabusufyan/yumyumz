@@ -28,15 +28,12 @@ const UserMenu = () => {
       >
         <span>
           {' '}
-          <UserPicture
-            src={user?.photoURL}
-            className="w-12 h-12 rounded group-hover:border-2 border"
-          />
+          <UserPicture src={user?.photoURL} />
         </span>
-        <RxCaretDown size={30} className="" />
+        <RxCaretDown size={25} className="" />
       </button>
       <div
-        className={`absolute right-0 z-[2000] w-[175px] whitespace-nowrap drop-shadow-xl mt-1 transition-dropdown motion-reduce:transition-none ease-out duration-300 ${
+        className={`absolute right-0 z-[200] w-[175px] whitespace-nowrap drop-shadow-xl mt-1 transition-dropdown motion-reduce:transition-none ease-out duration-300 ${
           isHovered
             ? 'opacity-100 translate-y-0 visible'
             : 'opacity-0 -translate-y-2 invisible'
@@ -51,7 +48,7 @@ const UserMenu = () => {
         <div className="py-0.5 px-1 w-full" role="none">
           <button
             onClick={logout}
-            className="group flex items-center rounded-md space-x-4 px-3 py-2 hover:bg-gray-50 transition-all duration-300 w-full text-lg"
+            className="group flex items-center rounded-md space-x-4 px-3 py-3 hover:bg-gray-50 transition-all duration-300 w-full text-[16px]"
             role="menuitem"
           >
             <VscBook
@@ -66,7 +63,7 @@ const UserMenu = () => {
         <div className="py-0.5 px-1 w-full" role="none">
           <button
             onClick={logout}
-            className="group flex items-center rounded-md space-x-4 px-3 py-2 hover:bg-gray-50 transition-all duration-300 w-full text-lg"
+            className="group flex items-center rounded-md space-x-4 px-3 py-3 hover:bg-gray-50 transition-all duration-300 w-full text-[16px]"
             role="menuitem"
           >
             <RiSettings4Line
@@ -81,7 +78,7 @@ const UserMenu = () => {
         <div className="py-0.5 px-1 w-full" role="none">
           <button
             onClick={logout}
-            className="group flex items-center rounded-md space-x-4 px-3 py-2 hover:bg-gray-50 transition-all duration-300 w-full text-lg"
+            className="group flex items-center rounded-md space-x-4 px-3 py-3 hover:bg-gray-50 transition-all duration-300 w-full text-[16px]"
             role="menuitem"
           >
             <TbDoorExit

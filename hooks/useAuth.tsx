@@ -122,37 +122,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         password
       );
       setUser(userCredential.user);
-      // Fetch the user's role from the "roles" collection
-      const rolesRef = doc(db, 'roles', userCredential.user.uid);
-      const roleSnapshot = await getDoc(rolesRef);
-      const role = roleSnapshot.data()?.role; // Assuming the role field is stored as "role"
-      // Update the lastLoginTimestamp field
       const userDocRef = doc(db, 'users', userCredential.user.uid);
       await updateDoc(userDocRef, {
         lastLoginTimestamp: serverTimestamp(),
       });
-
-      // Customize the toast message based on the user's role
-      let toastMessage = '';
-      if (role === 'agent') {
-        toastMessage =
-          'Manage your listings and connect with potential clients.';
-      } else if (role === 'user') {
-        toastMessage =
-          'Explore properties, save favorites, and connect with agents.';
-      } else {
-        // Handle other roles or a default message
-        toastMessage = 'Welcome back! Start your real estate journey.';
-      }
-      // toast({
-      //   title: 'Welcome back!',
-      //   description: toastMessage,
-      //   variant: 'destructive',
-      // });
-
-      // Reload the page
-      window.location.reload();
-
       setLoading(false);
     } catch (error) {
       setLoading(false);

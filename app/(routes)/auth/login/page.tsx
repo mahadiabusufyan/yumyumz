@@ -3,17 +3,16 @@
 import Button from '@/components/Common/Button';
 import Heading from '@/components/Common/Heading';
 import Input from '@/components/Common/Input';
-import Logo from '@/components/Common/Logo';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
-type Props = {};
-
-const LoginPage = (props: Props) => {
+const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const { signIn } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -26,10 +25,14 @@ const LoginPage = (props: Props) => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true);
-    signIn(data.email, data.password);
-    setLoading(false);
+    try {
+      await signIn(data.email, data.password);
+      router.push('/');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -49,11 +52,26 @@ const LoginPage = (props: Props) => {
       <Input
         id="password"
         label="Password"
+        type={showPassword ? 'text' : 'password'}
         disabled={loading}
         register={register}
         errors={errors}
         required
-      />
+      >
+        {showPassword ? (
+          <AiFillEyeInvisible
+            size={27}
+            className="absolute right-3 top-5  cursor-pointer text-gray-400 hover:text-[#de79fb] transition duration-300"
+            onClick={() => setShowPassword((prevState) => !prevState)}
+          />
+        ) : (
+          <AiFillEye
+            size={27}
+            className="absolute right-3 top-5  cursor-pointer text-gray-400 hover:text-[#de79fb] transition duration-300"
+            onClick={() => setShowPassword((prevState) => !prevState)}
+          />
+        )}
+      </Input>
       <Button disabled={loading} loading={loading} full label="Sign in" />
       <div
         className="

@@ -3,17 +3,19 @@
 import Button from '@/components/Common/Button';
 import Heading from '@/components/Common/Heading';
 import Input from '@/components/Common/Input';
-import Logo from '@/components/Common/Logo';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 
 type Props = {};
 
 const RegisterPage = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
+  const { user } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const {
     register,
@@ -36,6 +38,11 @@ const RegisterPage = (props: Props) => {
       setLoading(false);
     }
   };
+
+  if (user) {
+    router.push('/');
+    return null;
+  }
 
   return (
     <form
@@ -70,7 +77,22 @@ const RegisterPage = (props: Props) => {
         register={register}
         errors={errors}
         required
-      />
+      >
+        {' '}
+        {showPassword ? (
+          <AiFillEyeInvisible
+            size={27}
+            className="absolute right-3 top-5  cursor-pointer text-gray-400 hover:text-[#de79fb] transition duration-300"
+            onClick={() => setShowPassword((prevState) => !prevState)}
+          />
+        ) : (
+          <AiFillEye
+            size={27}
+            className="absolute right-3 top-5  cursor-pointer text-gray-400 hover:text-[#de79fb] transition duration-300"
+            onClick={() => setShowPassword((prevState) => !prevState)}
+          />
+        )}
+      </Input>
 
       <Button
         loading={loading}
