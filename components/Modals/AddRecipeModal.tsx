@@ -10,6 +10,7 @@ import useAddRecipeModal from '@/hooks/useAddRecipeModal';
 import { cuisines } from '@/lib/cuisines';
 import CuisineBox from '../Common/CuisineBox';
 import CookingTime from '../Common/CookingTime';
+import IngredientForm from '../Common/IngredientForm';
 
 enum STEPS {
   BASICS = 0,
@@ -22,6 +23,9 @@ enum STEPS {
 const AddRecipeModal = () => {
   const router = useRouter();
   const addRecipeModal = useAddRecipeModal();
+  const [ingredients, setIngredients] = useState<
+    { name: string; quantity: number }[]
+  >([]);
 
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.BASICS);
@@ -37,6 +41,7 @@ const AddRecipeModal = () => {
     defaultValues: {
       title: '',
       cookingTime: 5,
+      ingredients: [],
     },
   });
   const cuisine = watch('cuisine');
@@ -67,6 +72,38 @@ const AddRecipeModal = () => {
 
     return 'Next';
   }, [step]);
+
+  const handleAddIngredient = (ingredient: {
+    name: string;
+    quantity: number;
+  }) => {
+    setIngredients([...ingredients, ingredient]);
+  };
+
+  const handleIngredientChange = (
+    index: number,
+    field: string,
+    value: string | number | { name: string; quantity: number }[]
+  ) => {
+    console.log('Ingredient Change:', index, field, value);
+
+    const updatedIngredients = [...ingredients]; // Create a copy of the array
+
+    if (field === 'ingredients') {
+      console.log('Setting ingredients directly:', value);
+      setIngredients(value as { name: string; quantity: number }[]); // Cast value to the correct type
+    } else {
+      updatedIngredients[index] = {
+        ...updatedIngredients[index],
+        [field]: value,
+      };
+
+      console.log('Updated ingredients array:', updatedIngredients);
+      setIngredients(updatedIngredients);
+    }
+  };
+
+  console.log(ingredients);
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -130,6 +167,11 @@ const AddRecipeModal = () => {
         <Heading
           title="Building Blocks of Flavor"
           subtitle="List the ingredients needed, along with precise quantities."
+        />
+        <IngredientForm
+          ingredients={ingredients}
+          onAddIngredient={handleAddIngredient}
+          onIngredientChange={handleIngredientChange} // Pass the handler to IngredientForm
         />
       </div>
     );

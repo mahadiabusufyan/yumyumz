@@ -39,7 +39,7 @@ const UserMenu = () => {
           isHovered
             ? 'opacity-100 translate-y-0 visible'
             : 'opacity-0 -translate-y-2 invisible'
-        } divide-y divide-gray-200  bg-white  border border-gray-300  rounded-lg`}
+        } divide-y divide-gray-100  bg-white  border border-gray-300  rounded-lg`}
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="menu-button"
