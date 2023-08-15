@@ -9,6 +9,7 @@ import Input from '../Common/Input';
 import useAddRecipeModal from '@/hooks/useAddRecipeModal';
 import { cuisines } from '@/lib/cuisines';
 import CuisineBox from '../Common/CuisineBox';
+import CookingTime from '../Common/CookingTime';
 
 enum STEPS {
   BASICS = 0,
@@ -35,9 +36,11 @@ const AddRecipeModal = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       title: '',
+      cookingTime: 5,
     },
   });
   const cuisine = watch('cuisine');
+  const cookingTime = watch('cookingTime');
   const onBack = () => {
     setStep((value) => value - 1);
   };
@@ -81,6 +84,8 @@ const AddRecipeModal = () => {
     return 'Prev';
   }, [step]);
 
+  console.log(cookingTime);
+
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
@@ -96,12 +101,8 @@ const AddRecipeModal = () => {
         required
       />
       <div
-        className="
-          grid 
-          grid-cols-2 
-          md:grid-cols-3 
-          gap-3
-          max-h-[40vh]
+        className="grid grid-cols-2 md:grid-cols-4 gap-3
+          max-h-[30vh]
           md:max-h-[30vh]
           overflow-y-auto
         "
@@ -116,6 +117,10 @@ const AddRecipeModal = () => {
           </div>
         ))}
       </div>
+      <CookingTime
+        value={cookingTime}
+        onChange={(value) => setCustomValue('cookingTime', value)}
+      />
     </div>
   );
 
@@ -167,7 +172,7 @@ const AddRecipeModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={addRecipeModal.isOpen}
-      title="Share your recipe ✨"
+      title="Post your recipe ✨"
       actionLabel={actionLabel}
       onSubmit={handleSubmit(onSubmit)}
       secondaryActionLabel={secondaryActionLabel}
