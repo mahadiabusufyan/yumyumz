@@ -12,6 +12,7 @@ import CuisineBox from '../Common/CuisineBox';
 import CookingTime from '../Common/CookingTime';
 import IngredientForm from '../Common/IngredientForm';
 import RichTextEditor from '../Common/RichTextEditor';
+import PhotosUploader from '../Common/PhotosUploader';
 
 enum STEPS {
   BASICS = 0,
@@ -27,7 +28,7 @@ const AddRecipeModal = () => {
   const [ingredients, setIngredients] = useState<
     { name: string; quantity: number }[]
   >([]);
-
+  const [photos, setPhotos] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.BASICS);
   const [instructions, setInstructions] = useState('');
@@ -127,6 +128,11 @@ const AddRecipeModal = () => {
     return 'Prev';
   }, [step]);
 
+  function handleImagesChange(newImages: File[]) {
+    // setFieldValue('photos', newImages);
+    setPhotos(newImages);
+  }
+
   console.log(instructions);
 
   let bodyContent = (
@@ -213,6 +219,12 @@ const AddRecipeModal = () => {
         <Heading
           title="Picture-Perfect: Showcasing Your Dish"
           subtitle="Share photos, dietary preferences, and allergens if applicable."
+        />
+        <PhotosUploader
+          images={photos}
+          // error={errors.photos && touched.photos}
+          // errorText={errors.photos}
+          onImagesChange={handleImagesChange}
         />
       </div>
     );
