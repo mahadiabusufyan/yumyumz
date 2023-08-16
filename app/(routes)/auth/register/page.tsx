@@ -6,38 +6,37 @@ import Input from '@/components/Common/Input';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
+import { useFormik } from 'formik';
+import { RegisterFormSchema } from '@/yupSchemas/RegisterForm';
 
-type Props = {};
-
-const RegisterPage = (props: Props) => {
+const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
   const { user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-    },
-  });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setLoading(true);
-    try {
-      console.log(data);
-      await signUp(data.name, data.email, data.password);
-    } finally {
-      setLoading(false);
-    }
+  const initialValues = {
+    name: '',
+    email: '',
+    password: '',
   };
+
+  const { values, touched, errors, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: RegisterFormSchema,
+      onSubmit: async (values, action) => {
+        setLoading(true);
+        try {
+          await signUp(values.name, values.email, values.password);
+          router.push('/');
+        } finally {
+          setLoading(false);
+        }
+      },
+    });
 
   if (user) {
     router.push('/');
@@ -46,7 +45,7 @@ const RegisterPage = (props: Props) => {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit}
       className="flex flex-col items-center justify-center gap-5 w-full px-3"
     >
       <Heading
@@ -56,27 +55,40 @@ const RegisterPage = (props: Props) => {
       />
       <Input
         id="name"
-        label="Full Name"
-        disabled={loading}
-        register={register}
-        errors={errors}
-        required
+        type="text"
+        name="name"
+        placeholder="Name"
+        label="Name"
+        value={values.name}
+        error={errors.name && touched.name}
+        errorText={errors.name}
+        onBlur={handleBlur}
+        onChange={handleChange}
       />
       <Input
         id="email"
+        type="email"
+        name="email"
+        placeholder="Email Address"
         label="Email Address"
-        disabled={loading}
-        register={register}
-        errors={errors}
-        required
+        value={values.email}
+        error={errors.email && touched.email}
+        errorText={errors.email}
+        onBlur={handleBlur}
+        onChange={handleChange}
       />
       <Input
         id="password"
+        type={showPassword ? 'text' : 'password'}
+        name="password"
+        value={values.password}
+        placeholder="Password"
         label="Password"
+        error={errors.password && touched.password}
+        errorText={errors.password}
+        onBlur={handleBlur}
+        onChange={handleChange}
         disabled={loading}
-        register={register}
-        errors={errors}
-        required
       >
         {' '}
         {showPassword ? (

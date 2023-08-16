@@ -3,7 +3,7 @@ import { IconType } from 'react-icons';
 import SmallLoader from './SmallLoader';
 
 type Props = {
-  label: string;
+  label?: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   disabled?: boolean;
   loading?: boolean;

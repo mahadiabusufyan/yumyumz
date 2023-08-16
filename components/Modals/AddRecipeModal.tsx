@@ -62,7 +62,7 @@ const AddRecipeModal = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.SOURCE) {
+    if (step !== STEPS.PHOTOS) {
       return onNext();
     }
     // setIsLoading(true);
@@ -136,7 +136,7 @@ const AddRecipeModal = () => {
   console.log(instructions);
 
   let bodyContent = (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
       <Heading
         title="Introduce Your Culinary Creation"
         subtitle="Fill in the essential details to give your recipe its identity."
@@ -175,7 +175,7 @@ const AddRecipeModal = () => {
 
   if (step === STEPS.INGREDIENT_AND_QUANTITIES) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-6">
         <Heading
           title="Building Blocks of Flavor"
           subtitle="List the ingredients needed, along with precise quantities."
@@ -197,7 +197,7 @@ const AddRecipeModal = () => {
 
   if (step === STEPS.INSTRUCTIONS) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-6">
         <Heading
           title="Cooking Chronicles: Step-by-Step"
           subtitle="Provide a detailed guide on how to prepare your dish."
@@ -215,7 +215,7 @@ const AddRecipeModal = () => {
 
   if (step === STEPS.PHOTOS) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-6">
         <Heading
           title="Picture-Perfect: Showcasing Your Dish"
           subtitle="Share photos, dietary preferences, and allergens if applicable."
@@ -230,16 +230,24 @@ const AddRecipeModal = () => {
     );
   }
 
-  if (step === STEPS.SOURCE) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="The Roots of Your Recipe"
-          subtitle="Give credit and share your recipe's origin before submitting."
-        />
-      </div>
-    );
-  }
+  // if (step === STEPS.SOURCE) {
+  //   bodyContent = (
+  //     <div className="flex flex-col gap-6">
+  //       <Heading
+  //         title="The Roots of Your Recipe"
+  //         subtitle="Give credit and share your recipe's origin before submitting."
+  //       />
+  //       <Input
+  //         id="title"
+  //         label="Recipe Title"
+  //         disabled={isLoading}
+  //         register={register}
+  //         errors={errors}
+  //         required
+  //       />
+  //     </div>
+  //   );
+  // }
 
   return (
     <Modal

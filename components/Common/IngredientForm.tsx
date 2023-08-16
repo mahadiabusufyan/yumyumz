@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from './Button';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { BsTrash } from 'react-icons/bs';
 import Tooltip from './Tooltip';
 
@@ -47,22 +47,27 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
               onChange={(e) =>
                 onIngredientChange(index, 'name', e.target.value)
               }
-              className="border-2 hover:border-[#de79fb] py-2 px-2 w-full border-neutral-400 focus:border-[#de79fb]  rounded-lg
+              className="border-2 hover:border-[#de79fb] py-2 px-2 w-full border-black focus:border-[#de79fb]  rounded-lg
               outline-none"
             />
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center border-2 rounded-lg border-black hover:border-[#de79fb] py-2 w-[200px]">
               <button
+                data-tooltip-id="add-one"
                 onClick={() =>
-                  handleQuantityChange(
-                    index,
-                    Math.max(1, ingredient.quantity - 1)
-                  )
+                  handleQuantityChange(index, ingredient.quantity + 1)
                 }
-                className="bg-blue-100 text-blue-600 p-1 rounded-md"
+                className=" p-1 rounded-md"
               >
-                -
+                <AiOutlinePlus size={18} />
               </button>
-              <input
+              {ingredient.quantity < 50 && (
+                <Tooltip id={'add-one'} content={'Add one'} />
+              )}
+
+              <span className="px-5 font-bold w-[70px]">
+                {ingredient.quantity}
+              </span>
+              {/* <input
                 type="number"
                 min={1}
                 value={ingredient.quantity}
@@ -73,16 +78,22 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
                     parseInt(e.target.value)
                   )
                 }
-                className="border-2 hover:border-[#de79fb] py-2 px-2 border-neutral-400 focus:border-[#de79fb]  rounded-lg outline-none"
-              />
+                className="border-2 hover:border-[#de79fb] py-2 px-2 border-neutral-400 focus:border-[#de79fb] w-[50px]  rounded-lg outline-none flex items-center justify-center"
+              /> */}
+
               <button
+                data-tooltip-id="remove-one"
                 onClick={() =>
-                  handleQuantityChange(index, ingredient.quantity + 1)
+                  handleQuantityChange(
+                    index,
+                    Math.max(1, ingredient.quantity - 1)
+                  )
                 }
-                className="bg-green-100 text-green-600 p-1 rounded-md"
+                className="p-1 rounded-md"
               >
-                +
+                <AiOutlineMinus size={18} />
               </button>
+              <Tooltip id={'remove-one'} content={'Remove one'} />
             </div>
             {/* <input
               type="number"

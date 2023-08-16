@@ -114,7 +114,7 @@ const Modal: React.FC<ModalProps> = ({
         "
       >
         <div
-          className="relative w-full lg:w-[50%] my-6 mx-auto h-full lg:h-auto  modal-content
+          className="relative w-full lg:w-[50%] my-5 mx-auto h-full lg:h-auto  modal-content
           "
         >
           {/*content*/}
@@ -149,7 +149,7 @@ const Modal: React.FC<ModalProps> = ({
                 className="
                 flex 
                 items-center 
-                p-5
+                p-4
                 rounded-t
                 justify-center
                 relative
@@ -173,12 +173,12 @@ const Modal: React.FC<ModalProps> = ({
                   />
                 </button>
                 <Tooltip id="close-modal" content="Close" />
-                <div className="text-xl font-medium">{title}</div>
+                <div className="text-lg lg:text-xl font-medium">{title}</div>
               </div>
               {/*body*/}
-              <div className="relative p-5 flex-auto">{body}</div>
+              <div className="relative p-4 flex-auto">{body}</div>
               {/*footer*/}
-              <div className="flex flex-col gap-2 p-5">
+              <div className="flex flex-col gap-2 p-4">
                 <div
                   className="
                     flex 

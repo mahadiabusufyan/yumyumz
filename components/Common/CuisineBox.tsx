@@ -14,7 +14,7 @@ const CuisineBox: React.FC<CuisineBoxProps> = ({
   return (
     <div
       onClick={() => onClick(label)}
-      className={`rounded-xl border-2 p-3 flex flex-col gap-3 hover:border-[#de79fb] transition duration-300 cursor-pointer
+      className={`rounded-lg border-2 p-2 flex flex-col gap-2 hover:border-[#de79fb] hover:drop-shadow-xl transition duration-300 cursor-pointer
         ${
           selected
             ? 'border-[#de79fb] bg-[#de79fb]/40 text-black'

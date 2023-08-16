@@ -9,8 +9,8 @@ interface HeadingProps {
 const Heading: React.FC<HeadingProps> = ({ title, subtitle, center }) => {
   return (
     <div className="text-center md:text-start">
-      <div className="text-2xl font-bold">{title}</div>
-      <div className="font-medium text-neutral-500 mt-1">{subtitle}</div>
+      <div className="text-lg lg:text-xl font-bold">{title}</div>
+      <div className=" text-neutral-600 mt-0.5">{subtitle}</div>
     </div>
   );
 };

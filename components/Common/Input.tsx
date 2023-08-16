@@ -1,20 +1,22 @@
-'use client';
-
-import { ReactNode } from 'react';
+import { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react';
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { IconType } from 'react-icons';
 import { BiDollar } from 'react-icons/bi';
 
 interface InputProps {
-  id: string;
-  label: string;
-  type?: string;
-  disabled?: boolean;
   icon?: IconType;
-  required?: boolean;
-  register: UseFormRegister<FieldValues>;
-  errors: FieldErrors;
+  id: string;
+  type?: string;
+  name: string;
+  placeholder?: string;
+  disabled?: boolean;
+  onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
+  label?: string;
+  error?: boolean | string | undefined;
+  errorText?: boolean | string | undefined;
+  onBlur?: FocusEventHandler<HTMLInputElement> | undefined;
   children?: ReactNode;
+  value: string | number;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -23,10 +25,12 @@ const Input: React.FC<InputProps> = ({
   type = 'text',
   disabled,
   icon: Icon,
-  register,
-  required,
-  errors,
+  errorText,
+  error,
+  onChange,
+  onBlur,
   children,
+  value,
 }) => {
   return (
     <div className="w-full relative">
@@ -44,13 +48,18 @@ const Input: React.FC<InputProps> = ({
       <input
         id={id}
         disabled={disabled}
-        {...register(id, { required })}
-        placeholder=" "
+        onBlur={onBlur}
         type={type}
+        autoComplete="off"
+        min={0}
+        spellCheck="false"
+        value={value}
+        onChange={onChange}
+        placeholder=" "
         className={`
           peer
           w-full
-          p-4
+          p-3
           pt-6 
           font-light 
           bg-white 
@@ -63,8 +72,8 @@ const Input: React.FC<InputProps> = ({
           disabled:opacity-70
           disabled:cursor-not-allowed
           ${Icon ? 'pl-9' : 'pl-4'}
-          ${errors[id] ? 'border-rose-500' : 'border-neutral-400'}
-          ${errors[id] ? 'focus:border-rose-500' : 'focus:border-[#de79fb]'}
+          ${error ? 'border-rose-500' : 'border-black'}
+          ${error ? 'focus:border-rose-500' : 'focus:border-[#de79fb]'}
         `}
       />
       <label
@@ -84,7 +93,8 @@ const Input: React.FC<InputProps> = ({
           peer-placeholder-shown:translate-y-0 
           peer-focus:scale-75
           peer-focus:-translate-y-4
-          ${errors[id] ? 'text-rose-500' : 'text-zinc-400'}
+          ${error ? 'text-rose-500' : 'text-gray-600'}
+          ${error ? 'peer-focus:text-rose-500' : 'peer-focus:text-[#de79fb]'}
         `}
       >
         {label}

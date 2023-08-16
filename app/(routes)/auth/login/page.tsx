@@ -6,57 +6,64 @@ import Input from '@/components/Common/Input';
 import useAuth from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { useFormik } from 'formik';
+import { LoginFormSchema } from '@/yupSchemas/LoginForm';
 
 const LoginPage = () => {
   const [loading, setLoading] = useState(false);
   const { signIn } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  });
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setLoading(true);
-    try {
-      await signIn(data.email, data.password);
-      router.push('/');
-    } finally {
-      setLoading(false);
-    }
+  const initialValues = {
+    email: '',
+    password: '',
   };
+
+  const { values, touched, errors, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues: initialValues,
+      validationSchema: LoginFormSchema,
+      onSubmit: async (values, action) => {
+        setLoading(true);
+        try {
+          await signIn(values.email, values.password);
+          router.push('/');
+        } finally {
+          setLoading(false);
+        }
+      },
+    });
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit}
       className="flex flex-col items-center justify-center gap-5 w-full px-3"
     >
       <Heading title="Welcome Back" subtitle="Login to your Account!" center />
       <Input
         id="email"
+        name="email"
         label="Email Address"
         disabled={loading}
-        register={register}
-        errors={errors}
-        required
+        value={values.email}
+        error={errors.email && touched.email}
+        errorText={errors.email}
+        onBlur={handleBlur}
+        onChange={handleChange}
       />
       <Input
         id="password"
+        name="password"
         label="Password"
         type={showPassword ? 'text' : 'password'}
         disabled={loading}
-        register={register}
-        errors={errors}
-        required
+        value={values.password}
+        error={errors.password && touched.password}
+        errorText={errors.password}
+        onBlur={handleBlur}
+        onChange={handleChange}
       >
         {showPassword ? (
           <AiFillEyeInvisible
