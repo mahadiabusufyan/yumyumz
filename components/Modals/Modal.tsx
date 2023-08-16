@@ -149,7 +149,7 @@ const Modal: React.FC<ModalProps> = ({
                 className="
                 flex 
                 items-center 
-                p-4
+                p-5
                 rounded-t
                 justify-center
                 relative
@@ -176,9 +176,9 @@ const Modal: React.FC<ModalProps> = ({
                 <div className="text-xl font-medium">{title}</div>
               </div>
               {/*body*/}
-              <div className="relative p-4 flex-auto">{body}</div>
+              <div className="relative p-5 flex-auto">{body}</div>
               {/*footer*/}
-              <div className="flex flex-col gap-2 p-4">
+              <div className="flex flex-col gap-2 p-5">
                 <div
                   className="
                     flex 

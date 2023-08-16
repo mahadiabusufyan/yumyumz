@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Add this CSS to your stylesheet */
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2); /* Increase the size when hovered */
+  transition: all 0.3s ease; /* Add transition property */
+}
+
+/* Apply top border radius to .ql-toolbar */
+.ql-toolbar:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.ql-blank .ql-editor {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+
+
+
+
+
+/* Change color of toolbar buttons on hover */
+.ql-toolbar button {
+  background-color: #f2f2f2; /* Set the default background color */
+  color: #333; /* Set the default text color */
+  border-radius: 4px; /* Apply rounded corners */
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+
+  /* Add padding or other styling as needed */
+}
+
+.ql-toolbar button:hover {
+  background-color: #de79fb; /* Set the hover background color */
+  color: #fff; /* Set the hover text color */
+}
+
+

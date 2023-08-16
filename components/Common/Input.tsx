@@ -59,6 +59,7 @@ const Input: React.FC<InputProps> = ({
           rounded-xl
           outline-none
           transition
+          hover:border-[#de79fb]
           disabled:opacity-70
           disabled:cursor-not-allowed
           ${Icon ? 'pl-9' : 'pl-4'}

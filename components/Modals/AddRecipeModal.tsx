@@ -11,6 +11,7 @@ import { cuisines } from '@/lib/cuisines';
 import CuisineBox from '../Common/CuisineBox';
 import CookingTime from '../Common/CookingTime';
 import IngredientForm from '../Common/IngredientForm';
+import RichTextEditor from '../Common/RichTextEditor';
 
 enum STEPS {
   BASICS = 0,
@@ -29,6 +30,11 @@ const AddRecipeModal = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(STEPS.BASICS);
+  const [instructions, setInstructions] = useState('');
+
+  const handleInstructionsChange = (newInstructions: string) => {
+    setInstructions(newInstructions);
+  };
 
   const {
     register,
@@ -87,11 +93,11 @@ const AddRecipeModal = () => {
   ) => {
     console.log('Ingredient Change:', index, field, value);
 
-    const updatedIngredients = [...ingredients]; // Create a copy of the array
+    const updatedIngredients = [...ingredients];
 
     if (field === 'ingredients') {
       console.log('Setting ingredients directly:', value);
-      setIngredients(value as { name: string; quantity: number }[]); // Cast value to the correct type
+      setIngredients(value as { name: string; quantity: number }[]);
     } else {
       updatedIngredients[index] = {
         ...updatedIngredients[index],
@@ -121,7 +127,7 @@ const AddRecipeModal = () => {
     return 'Prev';
   }, [step]);
 
-  console.log(cookingTime);
+  console.log(instructions);
 
   let bodyContent = (
     <div className="flex flex-col gap-8">
@@ -168,11 +174,17 @@ const AddRecipeModal = () => {
           title="Building Blocks of Flavor"
           subtitle="List the ingredients needed, along with precise quantities."
         />
-        <IngredientForm
-          ingredients={ingredients}
-          onAddIngredient={handleAddIngredient}
-          onIngredientChange={handleIngredientChange} // Pass the handler to IngredientForm
-        />
+        <div
+          className=" max-h-[60vh]
+          md:max-h-[30vh]
+          overflow-y-auto"
+        >
+          <IngredientForm
+            ingredients={ingredients}
+            onAddIngredient={handleAddIngredient}
+            onIngredientChange={handleIngredientChange} // Pass the handler to IngredientForm
+          />
+        </div>
       </div>
     );
   }
@@ -184,6 +196,13 @@ const AddRecipeModal = () => {
           title="Cooking Chronicles: Step-by-Step"
           subtitle="Provide a detailed guide on how to prepare your dish."
         />
+        <div className="min-h-[100px] mb-5">
+          <h2 className="text-lg font-semibold mb-2">Cooking Instructions</h2>
+          <RichTextEditor
+            value={instructions}
+            onChange={handleInstructionsChange}
+          />
+        </div>
       </div>
     );
   }
