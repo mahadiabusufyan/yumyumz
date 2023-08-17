@@ -9,6 +9,8 @@ import React, { useState } from 'react';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { useFormik } from 'formik';
 import { RegisterFormSchema } from '@/yupSchemas/RegisterForm';
+import { fetchSignInMethodsForEmail } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 const RegisterPage = () => {
   const [loading, setLoading] = useState(false);
@@ -30,6 +32,19 @@ const RegisterPage = () => {
       onSubmit: async (values, action) => {
         setLoading(true);
         try {
+          const signInMethods = await fetchSignInMethodsForEmail(
+            auth,
+            values.email
+          );
+          if (signInMethods.length > 0) {
+            // toast({
+            //   title: 'Email already exists.',
+            //   description: 'Email already exists. Please use a different email.',
+            //   variant: 'destructive',
+            // });
+            setLoading(false);
+            return;
+          }
           await signUp(values.name, values.email, values.password);
           router.push('/');
         } finally {

@@ -20,13 +20,13 @@ const Hero = () => {
       const screenWidth = window.innerWidth;
       console.log(screenWidth);
       if (screenWidth <= 375) {
-        setAnimationHeight(120); // Very small screens (e.g., iPhone SE)
+        setAnimationHeight(90); // Very small screens (e.g., iPhone SE)
       } else if (screenWidth <= 414) {
-        setAnimationHeight(250); // Small screens
+        setAnimationHeight(140); // Small screens
       } else if (screenWidth <= 1024) {
-        setAnimationHeight(250); // Tablet screens
+        setAnimationHeight(190); // Tablet screens
       } else {
-        setAnimationHeight(400); // Larger screens
+        setAnimationHeight(390); // Larger screens
       }
     };
 
@@ -40,14 +40,14 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="w-full h-[70vh] flex items-center justify-center px-3">
+    <div className="h-[45vh] md:h-[65vh] px-3">
       <div className="bg-[#f3def9] h-full container mx-auto rounded-3xl flex flex-col lg:flex-row items-center justify-center p-5">
         <div className="lg:w-1/2 text-center lg:text-left flex flex-col items-center justify-center lg:items-start gap-3 lg:pl-16">
-          <h3 className="text-5xl lg:text-6xl font-semibold">
+          <h3 className="text-3xl sm:text-5xl lg:text-6xl font-semibold">
             The Recipe Community
           </h3>
           <p className="text-base md:text-lg">
-            Cooking with Love ❤️, Sharing with the World
+            Cooking with ❤️{'  '} Sharing with the World
           </p>
           <div className="mt-3 w-full flex items-center justify-center lg:justify-start">
             <Button

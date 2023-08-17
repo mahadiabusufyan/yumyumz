@@ -11,6 +11,7 @@ interface ModalProps {
   onClose: () => void;
   onSubmit: () => void;
   title?: string;
+  loading?: boolean;
   body?: React.ReactElement;
   footer?: React.ReactElement;
   actionLabel: string;
@@ -24,6 +25,7 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   onSubmit,
   title,
+  loading,
   body,
   actionLabel,
   footer,
@@ -201,6 +203,7 @@ const Modal: React.FC<ModalProps> = ({
                   <Button
                     small
                     disabled={disabled}
+                    loading={loading}
                     label={actionLabel}
                     onClick={handleSubmit}
                   />

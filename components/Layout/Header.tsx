@@ -10,6 +10,7 @@ import { RiHeart3Line } from 'react-icons/ri';
 import useAddRecipeModal from '@/hooks/useAddRecipeModal';
 import { AiOutlinePlus } from 'react-icons/ai';
 import Tooltip from '../Common/Tooltip';
+import { BsBox } from 'react-icons/bs';
 
 type Props = {};
 
@@ -44,7 +45,7 @@ const Header = (props: Props) => {
                   onClick={() => router.push('/saved')}
                   className="p-2.5 group hover:bg-gray-100 rounded-full transition duration-300"
                 >
-                  <RiHeart3Line
+                  <BsBox
                     size={25}
                     className={
                       'text-gray-500 group-hover:text-[#DE79FB] transition duration-300'

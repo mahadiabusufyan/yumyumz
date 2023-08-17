@@ -1,7 +1,5 @@
 import { ChangeEventHandler, FocusEventHandler, ReactNode } from 'react';
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import { IconType } from 'react-icons';
-import { BiDollar } from 'react-icons/bi';
 
 interface InputProps {
   icon?: IconType;

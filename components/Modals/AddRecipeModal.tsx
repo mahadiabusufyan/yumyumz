@@ -1,6 +1,5 @@
 'use client';
 
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import Modal from './Modal';
@@ -13,6 +12,18 @@ import CookingTime from '../Common/CookingTime';
 import IngredientForm from '../Common/IngredientForm';
 import RichTextEditor from '../Common/RichTextEditor';
 import PhotosUploader from '../Common/PhotosUploader';
+import { useFormik } from 'formik';
+import AddRecipeFormSchema from '@/yupSchemas/AddRecipeForm';
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from 'firebase/storage';
+import { generateId } from '@/lib/utils';
+import { getAuth } from 'firebase/auth';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 enum STEPS {
   BASICS = 0,
@@ -22,37 +33,39 @@ enum STEPS {
   SOURCE = 4,
 }
 
+interface Recipe {
+  title: string;
+  cuisine: string;
+  photos?: [];
+  cookingTime: number;
+  ingredients?: [];
+}
+
+const INITIAL_RECIPE_DATA: Recipe = {
+  title: '',
+  cuisine: '',
+  photos: [],
+  cookingTime: 5,
+  ingredients: [],
+};
+
 const AddRecipeModal = () => {
   const router = useRouter();
   const addRecipeModal = useAddRecipeModal();
+  const initialValues = INITIAL_RECIPE_DATA;
   const [ingredients, setIngredients] = useState<
     { name: string; quantity: number }[]
   >([]);
   const [photos, setPhotos] = useState<File[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [step, setStep] = useState(STEPS.BASICS);
   const [instructions, setInstructions] = useState('');
+  const auth = getAuth();
 
   const handleInstructionsChange = (newInstructions: string) => {
     setInstructions(newInstructions);
   };
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-    reset,
-  } = useForm<FieldValues>({
-    defaultValues: {
-      title: '',
-      cookingTime: 5,
-      ingredients: [],
-    },
-  });
-  const cuisine = watch('cuisine');
-  const cookingTime = watch('cookingTime');
   const onBack = () => {
     setStep((value) => value - 1);
   };
@@ -61,19 +74,105 @@ const AddRecipeModal = () => {
     setStep((value) => value + 1);
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.PHOTOS) {
-      return onNext();
-    }
-    // setIsLoading(true);
-    // router.refresh();
-    // reset();
-    // setStep(STEPS.BASICS);
-    addRecipeModal.onClose();
-  };
+  const {
+    values,
+    touched,
+    errors,
+    resetForm,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = useFormik({
+    initialValues: initialValues,
+    validationSchema: AddRecipeFormSchema,
+    onSubmit: async (values, action) => {
+      if (step !== STEPS.PHOTOS) {
+        return onNext();
+      }
+      setLoading(true);
+      if (!values?.photos || values?.photos?.length < 3) {
+        setLoading(false);
+        // toast.error('Select at least 3 photos');
+        return;
+      }
+      async function storeImage(image: File) {
+        return new Promise((resolve, reject) => {
+          const storage = getStorage();
+          const filename = `${auth.currentUser?.uid}-${
+            image.name
+          }-${generateId()}`;
+          const storageRef = ref(storage, filename);
+          const uploadTask = uploadBytesResumable(storageRef, image);
+          uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+              // Observe state change events such as progress, pause, and resume
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              const progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              // console.log('Upload is ' + progress + '% done');
+              switch (snapshot.state) {
+                case 'paused':
+                  // console.log('Upload is paused');
+                  break;
+                case 'running':
+                  // console.log('Upload is running');
+                  break;
+              }
+            },
+            (error) => {
+              // Handle unsuccessful uploads
+              reject(error);
+            },
+            () => {
+              // Handle successful uploads on complete
+              // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                resolve(downloadURL);
+              });
+            }
+          );
+        });
+      }
+
+      const imgUrls = await Promise.all(
+        values.photos?.map((image) => storeImage(image))
+      ).catch((error) => {
+        // toast.error('Images not uploaded');
+        setLoading(false);
+        return;
+      });
+
+      const recipeId = generateId();
+      const formDataCopy = {
+        ...values,
+        imgUrls,
+        timestamp: serverTimestamp(),
+        isVerified: false,
+        ingredients: ingredients,
+        instructions: instructions,
+        ownerRef: auth.currentUser?.uid,
+        recipeId,
+      };
+
+      delete formDataCopy.photos;
+      const docRef = doc(db, 'recipes', recipeId);
+      await setDoc(docRef, formDataCopy);
+
+      // toast.success('Recipe created');
+
+      // router.push(`/recipes/${recipeId}`);
+      router.refresh();
+      resetForm();
+      setStep(STEPS.BASICS);
+      addRecipeModal.onClose();
+      setLoading(false);
+    },
+  });
 
   const actionLabel = useMemo(() => {
-    if (step === STEPS.SOURCE) {
+    if (step === STEPS.PHOTOS) {
       return 'Create';
     }
 
@@ -112,14 +211,6 @@ const AddRecipeModal = () => {
 
   console.log(ingredients);
 
-  const setCustomValue = (id: string, value: any) => {
-    setValue(id, value, {
-      shouldDirty: true,
-      shouldTouch: true,
-      shouldValidate: true,
-    });
-  };
-
   const secondaryActionLabel = useMemo(() => {
     if (step === STEPS.BASICS) {
       return undefined;
@@ -129,7 +220,7 @@ const AddRecipeModal = () => {
   }, [step]);
 
   function handleImagesChange(newImages: File[]) {
-    // setFieldValue('photos', newImages);
+    setFieldValue('photos', newImages);
     setPhotos(newImages);
   }
 
@@ -143,11 +234,14 @@ const AddRecipeModal = () => {
       />
       <Input
         id="title"
+        name="title"
         label="Recipe Title"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
-        required
+        disabled={loading}
+        value={values.title}
+        error={errors.title && touched.title}
+        errorText={errors.title}
+        onBlur={handleBlur}
+        onChange={handleChange}
       />
       <div
         className="grid grid-cols-2 md:grid-cols-4 gap-3
@@ -156,19 +250,18 @@ const AddRecipeModal = () => {
           overflow-y-auto
         "
       >
-        {cuisines.map((item) => (
-          <div key={item.label} className="col-span-1">
-            <CuisineBox
-              onClick={(cuisine) => setCustomValue('cuisine', cuisine)}
-              selected={cuisine === item.label}
-              label={item.label}
-            />
-          </div>
+        {cuisines.map((cuisineOption) => (
+          <CuisineBox
+            key={cuisineOption.label}
+            label={cuisineOption.label}
+            selected={values.cuisine === cuisineOption.label}
+            onClick={(cuisine) => setFieldValue('cuisine', cuisine)}
+          />
         ))}
       </div>
       <CookingTime
-        value={cookingTime}
-        onChange={(value) => setCustomValue('cookingTime', value)}
+        value={values.cookingTime}
+        onChange={(cookingTime) => setFieldValue('cookingTime', cookingTime)}
       />
     </div>
   );
@@ -188,7 +281,7 @@ const AddRecipeModal = () => {
           <IngredientForm
             ingredients={ingredients}
             onAddIngredient={handleAddIngredient}
-            onIngredientChange={handleIngredientChange} // Pass the handler to IngredientForm
+            onIngredientChange={handleIngredientChange}
           />
         </div>
       </div>
@@ -222,8 +315,8 @@ const AddRecipeModal = () => {
         />
         <PhotosUploader
           images={photos}
-          // error={errors.photos && touched.photos}
-          // errorText={errors.photos}
+          error={errors.photos && touched.photos}
+          errorText={errors.photos}
           onImagesChange={handleImagesChange}
         />
       </div>
@@ -251,11 +344,12 @@ const AddRecipeModal = () => {
 
   return (
     <Modal
-      disabled={isLoading}
+      disabled={loading}
       isOpen={addRecipeModal.isOpen}
+      loading={loading}
       title="Post your recipe ✨"
       actionLabel={actionLabel}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.BASICS ? undefined : onBack}
       onClose={addRecipeModal.onClose}
