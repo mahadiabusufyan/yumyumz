@@ -24,7 +24,6 @@ const SmallLoader = ({ white }: Props) => {
     >
       <rect x="10" y="7.5" width="2" height="5" fill={fillColor}>
         {' '}
-        {/* Reduced size */}
         <animateTransform
           attributeType="xml"
           attributeName="transform"
@@ -37,7 +36,6 @@ const SmallLoader = ({ white }: Props) => {
       </rect>
       <rect x="15" y="7.5" width="2" height="5" fill={fillColor}>
         {' '}
-        {/* Reduced size */}
         <animateTransform
           attributeType="xml"
           attributeName="transform"
@@ -50,7 +48,6 @@ const SmallLoader = ({ white }: Props) => {
       </rect>
       <rect x="20" y="7.5" width="2" height="5" fill={fillColor}>
         {' '}
-        {/* Reduced size */}
         <animateTransform
           attributeType="xml"
           attributeName="transform"
