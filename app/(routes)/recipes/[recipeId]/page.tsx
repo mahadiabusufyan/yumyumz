@@ -5,6 +5,7 @@ import Image from 'next/image';
 import React from 'react';
 import { BsClock } from 'react-icons/bs';
 import { Metadata } from 'next';
+import MainContent from '../components/MainContent';
 
 interface IParams {
   recipeId?: string;
@@ -32,7 +33,6 @@ export const generateMetadata = async ({
 
 const RecipePage = async ({ params }: { params: IParams }) => {
   const recipe = await getRecipeById(params);
-
   if (!recipe) {
     return null;
   }
@@ -61,6 +61,8 @@ const RecipePage = async ({ params }: { params: IParams }) => {
         {recipe.data.instructions && (
           <div dangerouslySetInnerHTML={{ __html: recipe.data.instructions }} />
         )}
+
+        <MainContent recipe={recipe} />
       </div>
     </main>
   );

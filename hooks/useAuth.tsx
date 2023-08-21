@@ -10,11 +10,14 @@ import {
 } from 'firebase/auth';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import {
+  collection,
   doc,
-  getDoc,
+  getDocs,
+  query,
   serverTimestamp,
   setDoc,
   updateDoc,
+  where,
 } from 'firebase/firestore';
 
 import { useRouter } from 'next/navigation';
@@ -33,6 +36,7 @@ interface IAuth {
   logout: () => Promise<void>;
   error: string | null;
   loading: boolean;
+  userId: string;
   isAuthenticated: boolean;
 }
 
@@ -43,6 +47,7 @@ const AuthContext = createContext<IAuth>({
   logout: async () => {},
   error: null,
   loading: false,
+  userId: '',
   isAuthenticated: false,
 });
 
@@ -56,6 +61,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [error, setError] = useState(null);
   const [initialLoading, setInitialLoading] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -112,6 +118,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         await setDoc(userDoc, userDetails);
         router.push('/');
         setUser(user);
+        setUserId(userId);
         await sendEmailVerification(user);
         setLoading(false);
       } else {
@@ -123,7 +130,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setLoading(false);
     }
   };
-
+  console.log(userId);
   const signIn = async (email: string, password: string) => {
     setLoading(true);
     try {
@@ -133,10 +140,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         password
       );
       setUser(userCredential.user);
-      const userDocRef = doc(db, 'users', userCredential.user.uid);
-      await updateDoc(userDocRef, {
-        lastLoginTimestamp: serverTimestamp(),
-      });
+
+      const usersRef = collection(db, 'users');
+      const queryRef = query(usersRef, where('email', '==', email));
+      const querySnapshot = await getDocs(queryRef);
+
+      if (!querySnapshot.empty) {
+        const userDoc = querySnapshot.docs[0];
+        const userId = userDoc.data().userId;
+        setUserId(userId);
+        const userDocRef = doc(db, 'users', userId);
+        await updateDoc(userDocRef, {
+          lastLoginTimestamp: serverTimestamp(),
+        });
+      }
+
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -164,10 +182,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       error,
       loading,
       logout,
+      userId,
       isAuthenticated,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [user, loading, error, isAuthenticated]
+    [user, loading, error, isAuthenticated, userId]
   );
 
   return (
