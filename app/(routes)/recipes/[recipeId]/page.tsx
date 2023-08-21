@@ -17,8 +17,14 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const recipe = await getRecipeById(params);
   const title = recipe?.data.title || '';
-  const capitalizedTitle =
-    title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
+
+  // Capitalize the first letter of each word
+  const words = title.toLowerCase().split(' ');
+  const capitalizedWords = words.map(
+    (word) => word.charAt(0).toUpperCase() + word.slice(1)
+  );
+  const capitalizedTitle = capitalizedWords.join(' ');
+
   return {
     title: capitalizedTitle,
   };

@@ -38,7 +38,7 @@ function Button({
        ${small ? '' : ''}`}
     >
       {Icon && <Icon size={24} className={``} />}
-      {loading ? <SmallLoader /> : label}
+      {loading ? <SmallLoader white /> : label}
     </button>
   );
 }

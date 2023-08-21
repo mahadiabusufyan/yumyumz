@@ -7,6 +7,7 @@ import { BiFilter, BiSearch } from 'react-icons/bi';
 import RecipeResults from './RecipeResults';
 import LargeLoader from '@/components/Common/LargeLoader';
 import FilterControls from './FilterControls';
+import BigLoader from '@/components/Common/BigLoader';
 
 type Props = {};
 
@@ -131,8 +132,14 @@ const BrowseRecipes = (props: Props) => {
             searchResults={0}
           />
         </div>
-        <div className="w-full flex items-center justify-center">
-          {loading ? <LargeLoader /> : <RecipeResults recipes={recipes} />}
+        <div className="w-full flex items-center justify-center h-auto">
+          {loading ? (
+            <div className="h-[200px] w-full flex items-center justify-center">
+              <BigLoader />
+            </div>
+          ) : (
+            <RecipeResults recipes={recipes} />
+          )}
         </div>
       </div>
     </section>
