@@ -99,7 +99,7 @@ const BrowseRecipes = (props: Props) => {
             onChange={handleCityChange}
             autoComplete="off"
             spellCheck="false"
-            className="pl-10 placeholder-gray-500 border-2 hover:border-secondary border-black focus:border-secondary text-sm  rounded-xl py-2.5 lg:w-[500px] w-full"
+            className="pl-10 placeholder-gray-500 border-2 hover:border-secondary border-black focus:border-secondary rounded-xl py-2.5 lg:w-[500px] w-full"
             placeholder="Search recipe here"
           />
         </div>
