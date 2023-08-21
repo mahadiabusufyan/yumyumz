@@ -55,9 +55,9 @@ const UserMenu = () => {
           >
             <VscBook
               size={23}
-              className="group-hover:text-[#DE79FB] transition-all duration-300"
+              className="group-hover:text-secondary transition-all duration-300"
             />
-            <span className="group-hover:text-[#DE79FB] transition-all duration-300">
+            <span className="group-hover:text-secondary transition-all duration-300">
               Recipes
             </span>
           </button>
@@ -70,9 +70,9 @@ const UserMenu = () => {
           >
             <RiSettings4Line
               size={23}
-              className="group-hover:text-[#DE79FB] transition-all duration-300"
+              className="group-hover:text-secondary transition-all duration-300"
             />
-            <span className="group-hover:text-[#DE79FB] transition-all duration-300">
+            <span className="group-hover:text-secondary transition-all duration-300">
               Settings
             </span>
           </button>

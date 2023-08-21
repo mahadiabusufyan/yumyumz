@@ -20,7 +20,8 @@ const RegisterPage = () => {
   const router = useRouter();
 
   const initialValues = {
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
   };
@@ -45,7 +46,12 @@ const RegisterPage = () => {
             setLoading(false);
             return;
           }
-          await signUp(values.name, values.email, values.password);
+          await signUp(
+            values.firstName,
+            values.lastName,
+            values.email,
+            values.password
+          );
           router.push('/');
         } finally {
           setLoading(false);
@@ -68,18 +74,33 @@ const RegisterPage = () => {
         subtitle="Login to your Account!"
         center
       />
-      <Input
-        id="name"
-        type="text"
-        name="name"
-        placeholder="Name"
-        label="Name"
-        value={values.name}
-        error={errors.name && touched.name}
-        errorText={errors.name}
-        onBlur={handleBlur}
-        onChange={handleChange}
-      />
+      <div className="grid grid-cols-2 gap-3">
+        {' '}
+        <Input
+          id="firstName"
+          type="text"
+          name="firstName"
+          placeholder="First Name"
+          label="First Name"
+          value={values.firstName}
+          error={errors.firstName && touched.firstName}
+          errorText={errors.firstName}
+          onBlur={handleBlur}
+          onChange={handleChange}
+        />{' '}
+        <Input
+          id="lastName"
+          type="text"
+          name="lastName"
+          placeholder="lastName"
+          label="Last Name"
+          value={values.lastName}
+          error={errors.lastName && touched.lastName}
+          errorText={errors.lastName}
+          onBlur={handleBlur}
+          onChange={handleChange}
+        />
+      </div>
       <Input
         id="email"
         type="email"

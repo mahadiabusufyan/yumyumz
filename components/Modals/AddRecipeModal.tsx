@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Modal from './Modal';
 import Heading from '../Common/Heading';
 import Input from '../Common/Input';
@@ -22,9 +22,19 @@ import {
 } from 'firebase/storage';
 import { generateId } from '@/lib/utils';
 import { getAuth } from 'firebase/auth';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  serverTimestamp,
+  setDoc,
+  where,
+} from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 import DifficultySelector from '../Common/DifficultySelector';
+import { User } from '@/app/(routes)/settings/page';
+import useAuth from '@/hooks/useAuth';
 
 enum STEPS {
   BASICS = 0,
@@ -63,6 +73,31 @@ const AddRecipeModal = () => {
   const [step, setStep] = useState(STEPS.BASICS);
   const [instructions, setInstructions] = useState('');
   const auth = getAuth();
+  const { user } = useAuth();
+  const [userData, setUserData] = useState<User>({
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+  });
+
+  useEffect(() => {
+    if (user) {
+      const usersRef = collection(db, 'users');
+      const queryRef = query(usersRef, where('email', '==', user?.email));
+      const unsubscribe = onSnapshot(queryRef, (querySnapshot) => {
+        if (!querySnapshot.empty) {
+          const userDoc = querySnapshot.docs[0];
+          const userData = userDoc.data();
+          setUserData(userData);
+        }
+      });
+
+      return () => {
+        unsubscribe(); // Cleanup the listener when the component unmounts
+      };
+    }
+  }, [user]);
 
   const handleInstructionsChange = (newInstructions: string) => {
     setInstructions(newInstructions);
@@ -150,7 +185,7 @@ const AddRecipeModal = () => {
         ingredients: ingredients,
         verified: false,
         instructions: instructions,
-        ownerRef: auth.currentUser?.uid,
+        ownerRef: userData.userId,
         recipeId,
       };
 

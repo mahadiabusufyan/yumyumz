@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
 
 export const RegisterFormSchema = Yup.object({
-  name: Yup.string().required('Name'),
+  firstName: Yup.string().required('First name required'),
+  lastName: Yup.string().required('Last name required'),
   email: Yup.string()
     .email('Please enter a valid email address')
     .required('Email cannot be empty'),

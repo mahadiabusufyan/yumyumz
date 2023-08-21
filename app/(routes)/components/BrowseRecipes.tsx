@@ -5,7 +5,6 @@ import useRecipes from '@/hooks/useRecipes';
 import React, { useState } from 'react';
 import { BiFilter, BiSearch } from 'react-icons/bi';
 import RecipeResults from './RecipeResults';
-import LargeLoader from '@/components/Common/LargeLoader';
 import FilterControls from './FilterControls';
 import BigLoader from '@/components/Common/BigLoader';
 

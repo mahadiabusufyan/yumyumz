@@ -23,7 +23,12 @@ import { generateId } from '@/lib/utils';
 
 interface IAuth {
   user: User | null;
-  signUp: (name: string, email: string, password: string) => Promise<void>;
+  signUp: (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   error: string | null;
@@ -76,7 +81,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     };
   }, [user]);
 
-  const signUp = async (name: string, email: string, password: string) => {
+  const signUp = async (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => {
     setLoading(true);
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -87,12 +97,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const user = auth.currentUser;
 
       if (user) {
-        await updateProfile(user, { displayName: name });
+        await updateProfile(user, { displayName: firstName + ' ' + lastName });
         const timestamp = serverTimestamp();
         const userId = generateId();
         const userDoc = doc(db, 'users', userId);
         const userDetails = {
-          name: name,
+          firstName: firstName,
+          lastName: lastName,
           email: email,
           timestamp: timestamp,
           lastLoginTimestamp: serverTimestamp(),
