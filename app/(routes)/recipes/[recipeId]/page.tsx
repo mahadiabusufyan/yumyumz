@@ -4,10 +4,25 @@ import Header from '@/components/Layout/Header';
 import Image from 'next/image';
 import React from 'react';
 import { BsClock } from 'react-icons/bs';
+import { Metadata } from 'next';
 
 interface IParams {
   recipeId?: string;
 }
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: IParams;
+}): Promise<Metadata> => {
+  const recipe = await getRecipeById(params);
+  const title = recipe?.data.title || '';
+  const capitalizedTitle =
+    title.charAt(0).toUpperCase() + title.slice(1).toLowerCase();
+  return {
+    title: capitalizedTitle,
+  };
+};
 
 const RecipePage = async ({ params }: { params: IParams }) => {
   const recipe = await getRecipeById(params);
@@ -41,7 +56,6 @@ const RecipePage = async ({ params }: { params: IParams }) => {
           <div dangerouslySetInnerHTML={{ __html: recipe.data.instructions }} />
         )}
       </div>
-      {recipe.data.title}
     </main>
   );
 };
