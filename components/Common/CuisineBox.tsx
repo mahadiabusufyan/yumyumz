@@ -1,23 +1,25 @@
 import React from 'react';
 
 interface CuisineBoxProps {
+  value: string;
   label: string;
   selected?: boolean;
   onClick: (value: string) => void;
 }
 
 const CuisineBox: React.FC<CuisineBoxProps> = ({
+  value,
   label,
   selected,
   onClick,
 }) => {
   return (
     <div
-      onClick={() => onClick(label)}
-      className={`rounded-lg border-2 p-2 flex flex-col gap-2 hover:border-[#de79fb] hover:drop-shadow-xl transition duration-300 cursor-pointer
+      onClick={() => onClick(value)}
+      className={`rounded-lg border-2 p-2 flex flex-col gap-2 hover:border-secondary hover:drop-shadow-xl transition duration-300 cursor-pointer
         ${
           selected
-            ? 'border-[#de79fb] bg-[#de79fb]/40 text-black'
+            ? 'border-secondary bg-secondary/40 text-black'
             : 'border-neutral-200'
         }
       `}

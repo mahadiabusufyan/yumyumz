@@ -20,13 +20,13 @@ const Hero = () => {
       const screenWidth = window.innerWidth;
       console.log(screenWidth);
       if (screenWidth <= 375) {
-        setAnimationHeight(90); // Very small screens (e.g., iPhone SE)
+        setAnimationHeight(90);
       } else if (screenWidth <= 414) {
-        setAnimationHeight(140); // Small screens
+        setAnimationHeight(100);
       } else if (screenWidth <= 1024) {
-        setAnimationHeight(190); // Tablet screens
+        setAnimationHeight(140);
       } else {
-        setAnimationHeight(390); // Larger screens
+        setAnimationHeight(280);
       }
     };
 
@@ -40,9 +40,9 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="h-[45vh] md:h-[65vh] px-3">
-      <div className="bg-[#f3def9] h-full container mx-auto rounded-3xl flex flex-col lg:flex-row items-center justify-center p-5">
-        <div className="lg:w-1/2 text-center lg:text-left flex flex-col items-center justify-center lg:items-start gap-3 lg:pl-16">
+    <div className="h-auto px-3">
+      <div className="bg-[#e8bcb9] h-full container mx-auto rounded-2xl flex flex-col lg:flex-row items-center justify-center p-5 py-10">
+        <div className="lg:w-1/2 text-center lg:text-left flex flex-col items-center justify-center lg:items-start gap-3 lg:pl-14  text-[#451952]">
           <h3 className="text-3xl sm:text-5xl lg:text-6xl font-semibold">
             The Recipe Community
           </h3>

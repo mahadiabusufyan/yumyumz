@@ -29,17 +29,8 @@ const useRecipes = ({ filters, sortBy, sortOrder }: RecipeOptions) => {
   useEffect(() => {
     const recipesRef = collection(db, 'recipes');
     const queryFilters: ReturnType<typeof where | typeof orderBy>[] = [
-      ...(filters.title || searchParams.get('title')
-        ? [where('title', '==', filters.title || searchParams.get('title'))]
-        : []),
-      ...(filters.cuisine || searchParams.get('cuisine')
-        ? [
-            where(
-              'cuisine',
-              '==',
-              filters.cuisine || searchParams.get('cuisine')
-            ),
-          ]
+      ...(filters.cuisine && filters.cuisine.length
+        ? [where('cuisine', 'in', filters.cuisine)]
         : []),
       ...(filters.cookingTime &&
       filters.cookingTime.min &&
@@ -50,6 +41,7 @@ const useRecipes = ({ filters, sortBy, sortOrder }: RecipeOptions) => {
             orderBy('cookingTime'),
           ]
         : []),
+      where('verified', '==', true),
       ...(sortBy && sortOrder ? [orderBy(sortBy, sortOrder)] : []),
     ];
 
@@ -62,14 +54,37 @@ const useRecipes = ({ filters, sortBy, sortOrder }: RecipeOptions) => {
     }
 
     const handleQuerySnapshot = (querySnap: QuerySnapshot) => {
-      const recipes: Recipe[] = [];
-      querySnap.forEach((doc: QueryDocumentSnapshot) => {
-        recipes.push({
-          id: doc.id,
-          data: doc.data() as Recipe['data'],
+      const searchTitle = (
+        filters.title || searchParams.get('title')
+      )?.toLowerCase();
+
+      if (searchTitle) {
+        const filteredRecipes: Recipe[] = [];
+
+        querySnap.forEach((doc: QueryDocumentSnapshot) => {
+          const title = doc.data().title.toLowerCase();
+
+          if (title.includes(searchTitle)) {
+            filteredRecipes.push({
+              id: doc.id,
+              data: doc.data() as Recipe['data'],
+            });
+          }
         });
-      });
-      setRecipes(recipes);
+
+        setRecipes(filteredRecipes);
+      } else {
+        const recipes: Recipe[] = [];
+        querySnap.forEach((doc: QueryDocumentSnapshot) => {
+          recipes.push({
+            id: doc.id,
+            data: doc.data() as Recipe['data'],
+          });
+        });
+
+        setRecipes(recipes);
+      }
+
       setLoading(false);
     };
 
@@ -102,7 +117,7 @@ const useRecipes = ({ filters, sortBy, sortOrder }: RecipeOptions) => {
         setUnsubscribe(null);
       }
     };
-  }, [filters, recipes, searchParams, sortBy, sortOrder]);
+  }, [filters, searchParams, sortBy, sortOrder, filters.title]);
 
   return { recipes, loading };
 };

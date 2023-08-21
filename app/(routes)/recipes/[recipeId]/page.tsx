@@ -1,4 +1,5 @@
 import getRecipeById from '@/actions/getRecipeById';
+import Header from '@/components/Layout/Header';
 import React from 'react';
 
 interface IParams {
@@ -11,7 +12,12 @@ const RecipePage = async ({ params }: { params: IParams }) => {
   if (!recipe) {
     return null;
   }
-  return <div>RecipePage</div>;
+  return (
+    <div>
+      <Header />
+      {recipe.data.title}
+    </div>
+  );
 };
 
 export default RecipePage;

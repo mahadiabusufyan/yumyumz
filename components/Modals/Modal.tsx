@@ -116,7 +116,7 @@ const Modal: React.FC<ModalProps> = ({
         "
       >
         <div
-          className="relative w-full lg:w-[50%] my-5 mx-auto h-full lg:h-auto  modal-content
+          className="relative w-full lg:w-[50%] my-5 mx-auto h-screen lg:h-auto  modal-content 
           "
         >
           {/*content*/}
@@ -151,7 +151,7 @@ const Modal: React.FC<ModalProps> = ({
                 className="
                 flex 
                 items-center 
-                p-4
+                p-6
                 rounded-t
                 justify-center
                 relative
@@ -178,9 +178,9 @@ const Modal: React.FC<ModalProps> = ({
                 <div className="text-lg lg:text-xl font-medium">{title}</div>
               </div>
               {/*body*/}
-              <div className="relative p-4 flex-auto">{body}</div>
+              <div className="relative p-6 flex-auto">{body}</div>
               {/*footer*/}
-              <div className="flex flex-col gap-2 p-4">
+              <div className="flex flex-col gap-2 p-6">
                 <div
                   className="
                     flex 
@@ -194,14 +194,12 @@ const Modal: React.FC<ModalProps> = ({
                   {secondaryAction && secondaryActionLabel && (
                     <Button
                       disabled={disabled}
-                      small
                       label={secondaryActionLabel}
                       onClick={handleSecondaryAction}
                       outline
                     />
                   )}
                   <Button
-                    small
                     disabled={disabled}
                     loading={loading}
                     label={actionLabel}

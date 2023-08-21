@@ -4,7 +4,7 @@ import BrowseRecipes from './components/BrowseRecipes';
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <main>
       <Header />
       <Hero />
       <BrowseRecipes />

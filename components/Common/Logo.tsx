@@ -11,14 +11,14 @@ const Logo: FC<LogoProps> = ({ className }) => {
     <Link href={'/'}>
       <div
         className={clsx(
-          'text-2xl font-bold cursor-pointer transition-all duration-300 group flex items-center',
+          'text-2xl md:text-3xl font-bold cursor-pointer transition-all duration-300 group flex items-center',
           className
         )}
       >
-        <span className="text-[#df79fb] group-hover:text-black transition-all duration-300">
+        <span className="text-secondary group-hover:text-black transition-all duration-300">
           yum
         </span>
-        <span className="text-black group-hover:text-[#df79fb] transition-all duration-300">
+        <span className="text-black group-hover:text-secondary transition-all duration-300">
           yumz
         </span>
       </div>

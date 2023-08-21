@@ -19,7 +19,7 @@ export type Recipe = {
   data: {
     title: string;
     cuisine: string;
-    photos?: [];
+    imgUrls: string[];
     cookingTime: number;
     ingredients?: [];
     timestamp: any;

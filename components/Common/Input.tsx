@@ -66,12 +66,12 @@ const Input: React.FC<InputProps> = ({
           rounded-xl
           outline-none
           transition
-          hover:border-[#de79fb]
+          hover:border-secondary
           disabled:opacity-70
           disabled:cursor-not-allowed
           ${Icon ? 'pl-9' : 'pl-4'}
           ${error ? 'border-rose-500' : 'border-black'}
-          ${error ? 'focus:border-rose-500' : 'focus:border-[#de79fb]'}
+          ${error ? 'focus:border-rose-500' : 'focus:border-secondary'}
         `}
       />
       <label
@@ -92,7 +92,7 @@ const Input: React.FC<InputProps> = ({
           peer-focus:scale-75
           peer-focus:-translate-y-4
           ${error ? 'text-rose-500' : 'text-gray-600'}
-          ${error ? 'peer-focus:text-rose-500' : 'peer-focus:text-[#de79fb]'}
+          ${error ? 'peer-focus:text-rose-500' : 'peer-focus:text-secondary'}
         `}
       >
         {label}

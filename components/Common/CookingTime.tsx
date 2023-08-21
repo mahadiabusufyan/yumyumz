@@ -23,7 +23,7 @@ const CookingTime: React.FC<CookingTimeProps> = ({ onChange, value }) => {
         step={5}
         value={value}
         onChange={(e) => handleCookingTimeChange(parseInt(e.target.value))}
-        className="w-full appearance-none bg-transparent [&::-webkit-slider-runnable-track]:rounded-xl [&::-webkit-slider-runnable-track]:bg-gray-300/50 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[30px] [&::-webkit-slider-thumb]:w-[50px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#de79fb] cursor-pointer transition-all duration-500"
+        className="w-full appearance-none bg-transparent [&::-webkit-slider-runnable-track]:rounded-xl [&::-webkit-slider-runnable-track]:bg-gray-200 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:h-[30px] [&::-webkit-slider-thumb]:w-[50px] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-secondary cursor-pointer transition-all duration-500"
       />
       <div className="flex justify-between text-sm text-gray-800">
         <span>5 minutes</span>

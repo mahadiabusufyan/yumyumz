@@ -47,10 +47,10 @@ const IngredientForm: React.FC<IngredientFormProps> = ({
               onChange={(e) =>
                 onIngredientChange(index, 'name', e.target.value)
               }
-              className="border-2 hover:border-[#de79fb] py-2 px-2 w-full border-black focus:border-[#de79fb]  rounded-lg
+              className="border-2 hover:border-secondary py-2 px-2 w-full border-black focus:border-secondary  rounded-lg
               outline-none"
             />
-            <div className="flex items-center justify-center border-2 rounded-lg border-black hover:border-[#de79fb] py-2 w-[200px]">
+            <div className="flex items-center justify-center border-2 rounded-lg border-black hover:border-secondary py-2 w-[200px]">
               <button
                 data-tooltip-id="add-one"
                 onClick={() =>
