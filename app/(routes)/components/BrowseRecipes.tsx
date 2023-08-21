@@ -13,6 +13,7 @@ type Props = {};
 export type Filters = {
   title?: string;
   cuisine?: [];
+  difficulty?: string;
   cookingTime?: {
     min: number;
     max: number;
@@ -26,6 +27,7 @@ const BrowseRecipes = (props: Props) => {
   const [filterOptions, setFilterOptions] = useState<Filters>({
     title: '',
     cuisine: [],
+    difficulty: '',
     cookingTime: {
       min: 0,
       max: 180,

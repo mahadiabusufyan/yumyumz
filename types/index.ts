@@ -22,6 +22,8 @@ export type Recipe = {
     imgUrls: string[];
     cookingTime: number;
     ingredients?: [];
+    instructions: any;
     timestamp: any;
+    difficulty: string;
   };
 };

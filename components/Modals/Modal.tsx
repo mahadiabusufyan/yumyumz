@@ -116,7 +116,7 @@ const Modal: React.FC<ModalProps> = ({
         "
       >
         <div
-          className="relative w-full lg:w-[50%] my-5 mx-auto h-screen lg:h-auto  modal-content 
+          className="relative w-full lg:w-[50%] my-5 mx-auto h-full lg:h-auto  modal-content
           "
         >
           {/*content*/}

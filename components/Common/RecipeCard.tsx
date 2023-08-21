@@ -3,6 +3,7 @@ import { Recipe } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BsClock, BsStar } from 'react-icons/bs';
+import SmallDifficultyIndicator from './SmallDifficultyIndicator';
 
 type Props = {
   recipe: Recipe;
@@ -42,13 +43,16 @@ export default function PropertySearchItem({
             <p>4.7</p>
             <p>(24)</p>
           </div> */}
-          <div>
+          <div className="flex items-center gap-3">
             <div className="flex items-center justify-center">
               <BsClock size={15} className="text-green-500 mr-2" />
               <span className="text-sm font-medium">
                 {recipe.data.cookingTime} min
               </span>
             </div>
+            {recipe.data.difficulty && (
+              <SmallDifficultyIndicator difficulty={recipe.data.difficulty} />
+            )}
           </div>
         </div>
       </div>

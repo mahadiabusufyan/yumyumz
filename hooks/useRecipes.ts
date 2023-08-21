@@ -32,6 +32,9 @@ const useRecipes = ({ filters, sortBy, sortOrder }: RecipeOptions) => {
       ...(filters.cuisine && filters.cuisine.length
         ? [where('cuisine', 'in', filters.cuisine)]
         : []),
+      ...(filters.difficulty && filters.difficulty.length
+        ? [where('difficulty', 'in', filters.difficulty)]
+        : []),
       ...(filters.cookingTime &&
       filters.cookingTime.min &&
       filters.cookingTime.max

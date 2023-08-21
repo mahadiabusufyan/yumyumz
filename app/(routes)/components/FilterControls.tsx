@@ -1,7 +1,7 @@
 import React from 'react';
 import { Filters } from './BrowseRecipes';
 import Filter from './Filter';
-import { ProjectsOptions } from '@/lib/options';
+import { DifficultyOptions } from '@/lib/options';
 import { cuisines } from '@/lib/cuisines';
 
 type FilterControlsProps = {
@@ -22,6 +22,11 @@ const FilterControls = ({
         title="Category"
         options={cuisines}
         onChange={(value: string) => handleFilterChange('cuisine', value)}
+      />
+      <Filter
+        title="Difficulty"
+        options={DifficultyOptions}
+        onChange={(value: string) => handleFilterChange('difficulty', value)}
       />
     </div>
   );
