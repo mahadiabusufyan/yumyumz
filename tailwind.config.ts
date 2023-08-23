@@ -19,12 +19,16 @@ const config: Config = {
     },
     extend: {
       colors: {
-        primary: '#D5B4B4',
-        secondary: '#D5B4B4',
-        accent: '#ECC94B',
+        primary: '#E5F9DB',
+        secondary: '#A0D8B3',
+        accent: '#A2A378',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-textshadow'),
+    require('tailwind-scrollbar'),
+    require('tailwind-scrollbar-hide'),
+  ],
 };
 export default config;

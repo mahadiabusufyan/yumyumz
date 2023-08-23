@@ -3,10 +3,11 @@
 import Heading from '@/components/Common/Heading';
 import useRecipes from '@/hooks/useRecipes';
 import React, { useState } from 'react';
-import { BiFilter, BiSearch } from 'react-icons/bi';
+import { BiSearch } from 'react-icons/bi';
 import RecipeResults from './RecipeResults';
 import FilterControls from './FilterControls';
 import BigLoader from '@/components/Common/BigLoader';
+import SortDropdown from './SortDropdown';
 
 type Props = {};
 
@@ -90,7 +91,7 @@ const BrowseRecipes = (props: Props) => {
         <div className="col-span-2 flex justify-start">
           <Heading title="Recipes 👩🏾‍🍳" subtitle="Search and filter recipes" />
         </div>
-        <div className="relative">
+        <div className="relative col-span-2 lg:col-span-1">
           <span className="text-sm ease-soft leading-5.6 absolute z-10 -ml-px flex h-full items-center px-3 text-slate-500 transition-all">
             <BiSearch size={20} className="text-gray-700" />
           </span>
@@ -105,22 +106,7 @@ const BrowseRecipes = (props: Props) => {
             placeholder="Search recipe here"
           />
         </div>
-        <div className="flex bg-black py-3 px-5 text-white rounded-full text-sm justify-center lg:justify-start">
-          <p className="hidden lg:block">Sort:</p>
-          <select
-            className="rounded-md focus:ring-0 focus:outline-0 w-fit bg-transparent"
-            onChange={handleSortChange}
-          >
-            <option value=".asc">Recommended</option>
-            <option value="cookingTime.asc">Duration (low to high)</option>
-            <option value="cookingTime.desc">Duration (high to low)</option>
-            <option value="timestamp.desc">Newest</option>
-            <option value="timestamp.asc">Oldest</option>
-          </select>
-          <div className="lg:hidden">
-            <BiFilter size={20} />
-          </div>
-        </div>
+        <SortDropdown handleSortChange={handleSortChange} />
       </div>
       <div className="flex flex-col lg:flex-row mt-5 lg:mt-10 gap-10 lg:gap-20 w-full items-center justify-center lg:items-start">
         <div className="lg:w-1/3 xl:w-1/4 w-full">

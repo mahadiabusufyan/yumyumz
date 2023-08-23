@@ -1,5 +1,5 @@
 import RecipeCard from '@/components/Common/RecipeCard';
-import EmptyStateAnimation from '@/components/EmptyState';
+import EmptyStateAnimation from '@/components/Common/EmptyState';
 import { Recipe } from '@/types';
 import { useState } from 'react';
 

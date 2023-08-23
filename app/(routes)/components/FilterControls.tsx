@@ -17,7 +17,7 @@ const FilterControls = ({
   handleResetFilters,
 }: FilterControlsProps) => {
   return (
-    <div className="">
+    <div className="flex flex-col space-y-4">
       <Filter
         title="Category"
         options={cuisines}

@@ -1,4 +1,3 @@
-import getRecipeById from '@/actions/getRecipeById';
 import DifficultyIndicator from '@/components/Common/DifficultyIndicator';
 import Header from '@/components/Layout/Header';
 import Image from 'next/image';
@@ -6,6 +5,8 @@ import React from 'react';
 import { BsClock } from 'react-icons/bs';
 import { Metadata } from 'next';
 import MainContent from '../components/MainContent';
+import Footer from '@/components/Layout/Footer';
+import getRecipeById from '@/app/actions';
 
 interface IParams {
   recipeId?: string;
@@ -64,6 +65,7 @@ const RecipePage = async ({ params }: { params: IParams }) => {
 
         <MainContent recipe={recipe} />
       </div>
+      <Footer />
     </main>
   );
 };

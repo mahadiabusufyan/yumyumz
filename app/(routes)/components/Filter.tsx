@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { RiAddCircleFill, RiSubtractLine } from 'react-icons/ri';
 
 interface Option {
   label: string;
@@ -25,33 +24,50 @@ const Filter = ({ title, options, onChange }: any) => {
   };
 
   return (
-    <div className="border-b">
+    <div className={`border-b ${expanded ? 'pb-4' : 'pb-0'}`}>
       <div
-        className="flex items-center justify-between cursor-pointer py-3 border-b"
+        className={`flex items-center justify-between cursor-pointer py-3 border-b transition-all duration-300 ${
+          expanded ? 'text-secondary' : 'text-black'
+        }`}
         onClick={toggleOptions}
       >
-        <h2 className="text-lg font-semibold">{title}</h2>
-        {expanded ? <AiOutlineMinus size={25} /> : <AiOutlinePlus size={25} />}
+        <h2 className="text-lg font-medium">{title}</h2>
+        {expanded ? (
+          <AiOutlineMinus
+            size={25}
+            className={`transition-transform transform ${
+              expanded ? '' : 'rotate-0'
+            }`}
+          />
+        ) : (
+          <AiOutlinePlus
+            size={25}
+            className="transition-transform transform rotate-0"
+          />
+        )}
       </div>
-      {expanded && (
-        <div className="mt-2 flex flex-col gap-2">
-          {options.map((option: { value: string; label: string }) => (
-            <label
-              key={option.value}
-              className="flex items-center justify-between pr-1"
-            >
-              <span className="text-lg">{option.label}</span>
-
-              <input
-                type="checkbox"
-                checked={selectedOptions.includes(option.value)}
-                onChange={() => handleOptionChange(option.value)}
-                className="w-5 h-5 text-white bg-black border-gray-300 rounded focus:ring-secondary cursor-pointer"
-              />
-            </label>
-          ))}
-        </div>
-      )}
+      <div
+        className={`mt-2 flex flex-col gap-2 transition-all duration-300 max-h-40 overflow-y-auto !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-secondary ${
+          expanded ? 'opacity-100 block' : 'opacity-0 hidden'
+        }`}
+      >
+        {options.map((option: { value: string; label: string }) => (
+          <label
+            key={option.value}
+            className={`flex items-center justify-between pr-1 hover:text-secondary ${
+              expanded ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <span className="text-lg">{option.label}</span>
+            <input
+              type="checkbox"
+              checked={selectedOptions.includes(option.value)}
+              onChange={() => handleOptionChange(option.value)}
+              className="w-5 h-5 text-white bg-black border-gray-300 rounded focus:ring-secondary cursor-pointer pr-3"
+            />
+          </label>
+        ))}
+      </div>
     </div>
   );
 };

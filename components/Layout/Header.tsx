@@ -7,9 +7,8 @@ import Logo from '../Common/Logo';
 import { useRouter } from 'next/navigation';
 import UserMenu from '../Common/UserMenu';
 import useAddRecipeModal from '@/hooks/useAddRecipeModal';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineHeart, AiOutlinePlus } from 'react-icons/ai';
 import Tooltip from '../Common/Tooltip';
-import { BsBox } from 'react-icons/bs';
 
 const Header = () => {
   const { isAuthenticated } = useAuth();
@@ -32,7 +31,7 @@ const Header = () => {
                   <AiOutlinePlus
                     size={25}
                     className={
-                      'text-black group-hover:text-[#FFEEC1] transition duration-300'
+                      'text-black group-hover:text-secondary transition duration-300'
                     }
                   />
                 </button>
@@ -42,10 +41,10 @@ const Header = () => {
                   onClick={() => router.push('/saved')}
                   className="p-2.5 group hover:bg-gray-50 rounded-full transition duration-300"
                 >
-                  <BsBox
+                  <AiOutlineHeart
                     size={25}
                     className={
-                      'text-black group-hover:text-[#FFEEC1] transition duration-300'
+                      'text-black group-hover:text-secondary transition duration-300'
                     }
                   />
                 </button>
