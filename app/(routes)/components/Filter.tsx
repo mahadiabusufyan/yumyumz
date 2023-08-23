@@ -47,7 +47,7 @@ const Filter = ({ title, options, onChange }: any) => {
         )}
       </div>
       <div
-        className={`mt-2 flex flex-col gap-2 transition-all duration-300 max-h-40 overflow-y-auto !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-secondary ${
+        className={`mt-2 flex flex-col gap-2 transition-all duration-300 max-h-40 overflow-y-auto !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-secondary scrollbar-thumb-rounded-md ${
           expanded ? 'opacity-100 block' : 'opacity-0 hidden'
         }`}
       >

@@ -27,7 +27,7 @@ const config: Config = {
   },
   plugins: [
     require('tailwindcss-textshadow'),
-    require('tailwind-scrollbar'),
+    require('tailwind-scrollbar')({ nocompatible: true }),
     require('tailwind-scrollbar-hide'),
   ],
 };

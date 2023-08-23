@@ -57,7 +57,7 @@ const Hero = () => {
                   ? addRecipeModal.onOpen
                   : () => router.push('/auth/register')
               }
-              label={user ? 'Add new recipe' : "Get started - It's free"}
+              label={user ? 'Post new recipe' : "Get started - It's free"}
             />
           </div>
         </div>

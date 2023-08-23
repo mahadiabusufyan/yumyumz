@@ -302,7 +302,7 @@ const AddRecipeModal = () => {
           className="grid grid-cols-2 md:grid-cols-4 gap-3
           max-h-[55vh]
           md:max-h-[40vh]
-          overflow-y-auto
+          overflow-y-auto !scrollbar-thin !scrollbar-track-transparent !scrollbar-thumb-secondary scrollbar-thumb-rounded-md pr-3 lg:pr-0
         "
         >
           {cuisines.map((cuisineOption) => (
@@ -349,7 +349,7 @@ const AddRecipeModal = () => {
           subtitle="Provide a detailed guide on how to prepare your dish."
         />
         <div className="min-h-[100px] mb-5">
-          <h2 className="text-lg font-semibold mb-2">Cooking Instructions</h2>
+          <h2 className="text-lg font-semibold mb-2">Cooking Process</h2>
           <RichTextEditor
             value={instructions}
             onChange={handleInstructionsChange}

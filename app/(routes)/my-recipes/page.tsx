@@ -16,7 +16,6 @@ import {
 } from 'firebase/firestore';
 import Lottie from 'lottie-react';
 import foodshow from '../../../public/assets/foodshow.json';
-
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Button from '@/components/Common/Button';
@@ -113,7 +112,7 @@ const MyRecipesPage = (props: Props) => {
             <Button
               icon={AiOutlinePlus}
               onClick={addRecipeModal.onOpen}
-              label={'Add new recipe'}
+              label={'Post new recipe'}
             />
           </div>
         </div>

@@ -35,7 +35,7 @@ const Header = () => {
                     }
                   />
                 </button>
-                <Tooltip id="add-recipe" content="Add new recipe" />
+                <Tooltip id="add-recipe" content="Post new recipe" />
                 <button
                   data-tooltip-id="saved-recipes"
                   onClick={() => router.push('/saved')}
