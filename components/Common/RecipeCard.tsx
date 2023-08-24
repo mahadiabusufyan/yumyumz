@@ -20,7 +20,7 @@ export default function PropertySearchItem({
     <article className="flex flex-col w-full ">
       <div className="relative w-full rounded-2xl">
         <div className="h-full w-full relative rounded-2xl overflow-hidden">
-          <Link href={`/recipes/${recipe.id}`}>
+          <Link href={`/recipes/${recipe.data.slug}`}>
             <div className="aspect-video w-full flex items-center justify-center rounded">
               <Image
                 height={200}
@@ -33,7 +33,6 @@ export default function PropertySearchItem({
           </Link>
         </div>
       </div>
-      {/* Bottom - details */}
       <div>
         <h3 className="text-lg font-bold">{recipe.data.title}</h3>
         {/* <h3 className="text-gray-400">by Mahadi</h3> */}

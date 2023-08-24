@@ -6,10 +6,11 @@ import { BsClock } from 'react-icons/bs';
 import { Metadata } from 'next';
 import MainContent from '../components/MainContent';
 import Footer from '@/components/Layout/Footer';
-import getRecipeById from '@/app/actions';
+import getPostedBy, { getRecipeBySlug } from '@/app/actions';
+import RecipeHeader from '../components/RecipeHeader';
 
 interface IParams {
-  recipeId?: string;
+  slug?: string;
 }
 
 export const generateMetadata = async ({
@@ -17,7 +18,7 @@ export const generateMetadata = async ({
 }: {
   params: IParams;
 }): Promise<Metadata> => {
-  const recipe = await getRecipeById(params);
+  const recipe = await getRecipeBySlug(params);
   const title = recipe?.data.title || '';
 
   // Capitalize the first letter of each word
@@ -33,14 +34,17 @@ export const generateMetadata = async ({
 };
 
 const RecipePage = async ({ params }: { params: IParams }) => {
-  const recipe = await getRecipeById(params);
+  const recipe = await getRecipeBySlug(params);
+  const postedBy = await getPostedBy(recipe?.data.ownerRef);
+  console.log(postedBy);
   if (!recipe) {
     return null;
   }
   return (
     <main>
       <Header />
-      <div className="container mx-auto flex flex-col items-center justify-center px-3">
+      <div className="max-w-5xl mx-auto flex flex-col items-center justify-center px-3">
+        <RecipeHeader recipe={recipe} postedBy={postedBy} />
         <Image
           src={recipe.data.imgUrls[0]}
           alt="Loading.."

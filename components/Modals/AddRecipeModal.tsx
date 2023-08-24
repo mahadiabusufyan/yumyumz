@@ -12,6 +12,7 @@ import CookingTime from '../Common/CookingTime';
 import IngredientForm from '../Common/IngredientForm';
 import RichTextEditor from '../Common/RichTextEditor';
 import PhotosUploader from '../Common/PhotosUploader';
+import slugify from 'slugify';
 import { useFormik } from 'formik';
 import AddRecipeFormSchema from '@/yupSchemas/AddRecipeForm';
 import {
@@ -20,7 +21,7 @@ import {
   ref,
   uploadBytesResumable,
 } from 'firebase/storage';
-import { generateId } from '@/lib/utils';
+import { generateId, generateRandomString } from '@/lib/utils';
 import { getAuth } from 'firebase/auth';
 import {
   collection,
@@ -65,9 +66,7 @@ const AddRecipeModal = () => {
   const router = useRouter();
   const addRecipeModal = useAddRecipeModal();
   const initialValues = INITIAL_RECIPE_DATA;
-  const [ingredients, setIngredients] = useState<
-    { name: string; quantity: number }[]
-  >([]);
+  const [ingredients, setIngredients] = useState<{ name: string }[]>([]);
   const [photos, setPhotos] = useState<File[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [step, setStep] = useState(STEPS.BASICS);
@@ -178,12 +177,15 @@ const AddRecipeModal = () => {
       });
 
       const recipeId = generateId();
+
       const formDataCopy = {
         ...values,
         imgUrls,
         timestamp: serverTimestamp(),
         ingredients: ingredients,
         verified: false,
+        slug:
+          slugify(values.title, { lower: true }) + '-' + generateRandomString(),
         instructions: instructions,
         ownerRef: userData.userId,
         recipeId,
@@ -210,17 +212,14 @@ const AddRecipeModal = () => {
     return 'Next';
   }, [step]);
 
-  const handleAddIngredient = (ingredient: {
-    name: string;
-    quantity: number;
-  }) => {
+  const handleAddIngredient = (ingredient: { name: string }) => {
     setIngredients([...ingredients, ingredient]);
   };
 
   const handleIngredientChange = (
     index: number,
     field: string,
-    value: string | number | { name: string; quantity: number }[]
+    value: string | number | { name: string }[]
   ) => {
     console.log('Ingredient Change:', index, field, value);
 
@@ -228,7 +227,7 @@ const AddRecipeModal = () => {
 
     if (field === 'ingredients') {
       console.log('Setting ingredients directly:', value);
-      setIngredients(value as { name: string; quantity: number }[]);
+      setIngredients(value as { name: string }[]);
     } else {
       updatedIngredients[index] = {
         ...updatedIngredients[index],
