@@ -4,6 +4,13 @@ export const DifficultyOptions = [
   { value: 'hard', label: 'Hard' },
 ];
 
+export const MealTypeOptions = [
+  { value: 'breakfast', label: 'Breakfast' },
+  { value: 'lunch', label: 'Lunch' },
+  { value: 'supper', label: 'Supper' },
+  { value: 'dinner', label: 'Dinner' },
+];
+
 export const SortOptions = [
   { value: '.asc', label: 'Recommended' },
   { value: 'cookingTime.asc', label: 'Duration (low to high)' },

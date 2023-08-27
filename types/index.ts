@@ -26,6 +26,7 @@ export type Recipe = {
     cookingTime: number;
     ingredients?: [];
     instructions: any;
+    mealType: string;
     timestamp: any;
     slug: string;
     difficulty: string;

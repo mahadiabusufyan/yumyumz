@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import DifficultyIndicator from '@/components/Common/DifficultyIndicator';
 import Header from '@/components/Layout/Header';
-import Image from 'next/image';
 import React from 'react';
 import { BsClock } from 'react-icons/bs';
 import { Metadata } from 'next';
-import MainContent from '../components/MainContent';
 import Footer from '@/components/Layout/Footer';
 import getPostedBy, { getRecipeBySlug } from '@/app/actions';
 import RecipeHeader from '../components/RecipeHeader';
 import Carousel from '@/components/Common/Carousel';
+import ShareRecipe from '@/components/Common/ShareRecipe';
+import FaveRecipe from '../components/FaveRecipe';
 
 interface IParams {
   slug?: string;
@@ -45,36 +45,57 @@ const RecipePage = async ({ params }: { params: IParams }) => {
   return (
     <main>
       <Header />
-      <div className="max-w-5xl mx-auto flex flex-col items-center justify-center px-3">
-        <RecipeHeader recipe={recipe} postedBy={postedBy} />
-        <Carousel mrItem="mr-5" classes="mb-7 md:mb-9">
-          {recipe.data.imgUrls.map((image, i) => (
-            <img
-              src={image}
-              alt={recipe.data.title}
-              className="inline-block aspect-[3/2] w-[300px] rounded-lg object-cover md:w-[400px] md:rounded-xl xl:w-[480px]"
-              width={2000}
-              height={1000}
-              key={`image-${i}`}
-            />
-          ))}
-        </Carousel>
-        <div className="mt-5 flex items-center justify-start gap-3">
-          <div className="h-[100px] bg-green-100 w-[100px] flex flex-col items-center justify-center rounded-3xl">
-            <BsClock size={40} className="text-green-500" />
-            <span className="text-green-700">
-              {recipe.data.cookingTime} min
-            </span>
+      <div className="max-w-5xl mx-auto  px-3">
+        <div className="flex flex-col items-center justify-center">
+          {' '}
+          <RecipeHeader recipe={recipe} postedBy={postedBy} />
+          <div className="relative">
+            {' '}
+            <Carousel mrItem="mr-5" classes="mb-7 md:mb-9">
+              {recipe.data.imgUrls.map((image, i) => (
+                <img
+                  src={image}
+                  alt={recipe.data.title}
+                  className="inline-block aspect-[3/2] w-[300px] rounded-lg object-cover md:w-[400px] md:rounded-xl xl:w-[480px]"
+                  width={2000}
+                  height={1000}
+                  key={`image-${i}`}
+                />
+              ))}
+            </Carousel>
+            <FaveRecipe recipe={recipe} className="absolute right-5 top-4" />
           </div>
-          {recipe.data.difficulty && (
-            <DifficultyIndicator difficulty={recipe.data.difficulty} />
+        </div>
+        <ShareRecipe recipe={recipe} />
+
+        <div className="mt-5 gap-3">
+          <h3 className="text-xl lg:text-3xl font-bold text-secondary mb-3">
+            Details
+          </h3>
+          <div className="mt-5 flex items-center justify-start gap-5">
+            {' '}
+            <div className="h-[100px] bg-green-100 w-[100px] flex flex-col items-center justify-center rounded-xl">
+              <BsClock size={40} className="text-green-500" />
+              <span className="text-green-700">
+                {recipe.data.cookingTime} min
+              </span>
+            </div>
+            {recipe.data.difficulty && (
+              <DifficultyIndicator difficulty={recipe.data.difficulty} />
+            )}
+          </div>
+        </div>
+        <div className="text-lg lg:text-xl gap-5">
+          <h3 className="text-xl lg:text-3xl font-bold text-secondary mb-3">
+            Instructions
+          </h3>
+          {recipe.data.instructions && (
+            <div
+              className="prose prose-blue max-w-full"
+              dangerouslySetInnerHTML={{ __html: recipe.data.instructions }}
+            />
           )}
         </div>
-        {recipe.data.instructions && (
-          <div dangerouslySetInnerHTML={{ __html: recipe.data.instructions }} />
-        )}
-
-        <MainContent recipe={recipe} />
       </div>
       <Footer />
     </main>

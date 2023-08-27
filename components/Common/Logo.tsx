@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { IoFastFoodOutline, IoFastFoodSharp } from 'react-icons/io5';
 
 interface LogoProps {
   className?: string;
@@ -11,10 +12,21 @@ const Logo: FC<LogoProps> = ({ className }) => {
     <Link href={'/'}>
       <div
         className={clsx(
-          'text-2xl md:text-3xl font-bold cursor-pointer transition-all duration-300 group flex items-center',
+          'text-xl md:text-2xl font-bold cursor-pointer transition-all duration-300 group flex items-center',
           className
         )}
       >
+        <div className="mr-2">
+          {' '}
+          <IoFastFoodOutline
+            size={30}
+            className="group-hover:hidden transition duration-300"
+          />
+          <IoFastFoodSharp
+            size={30}
+            className="group-hover:inline-flex hidden text-secondary"
+          />
+        </div>
         <span className="text-secondary group-hover:text-black transition-all duration-300">
           yum
         </span>

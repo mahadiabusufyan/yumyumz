@@ -36,7 +36,6 @@ interface IAuth {
   logout: () => Promise<void>;
   error: string | null;
   loading: boolean;
-  userId: string;
   isAuthenticated: boolean;
 }
 
@@ -47,7 +46,6 @@ const AuthContext = createContext<IAuth>({
   logout: async () => {},
   error: null,
   loading: false,
-  userId: '',
   isAuthenticated: false,
 });
 
@@ -105,20 +103,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (user) {
         await updateProfile(user, { displayName: firstName + ' ' + lastName });
         const timestamp = serverTimestamp();
-        const userId = generateId();
-        const userDoc = doc(db, 'users', userId);
+        const userDoc = doc(db, 'users', user.uid);
         const userDetails = {
           firstName: firstName,
           lastName: lastName,
           email: email,
           timestamp: timestamp,
           lastLoginTimestamp: serverTimestamp(),
-          uid: userId,
+          uid: auth.currentUser?.uid,
         };
         await setDoc(userDoc, userDetails);
         router.push('/');
         setUser(user);
-        setUserId(userId);
         await sendEmailVerification(user);
         setLoading(false);
       } else {
@@ -130,7 +126,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setLoading(false);
     }
   };
-  console.log(userId);
+
   const signIn = async (email: string, password: string) => {
     setLoading(true);
     try {

@@ -14,18 +14,18 @@ const DifficultyIndicator: React.FC<DifficultyIndicatorProps> = ({
 
   switch (difficulty) {
     case 'easy':
-      colorClass = 'bg-yellow-300';
-      textColor = 'text-yellow-700';
+      colorClass = 'bg-yellow-100';
+      textColor = 'text-yellow-600';
       text = 'Easy';
       break;
     case 'normal':
-      colorClass = 'bg-green-300';
-      textColor = 'text-green-700';
+      colorClass = 'bg-green-100';
+      textColor = 'text-green-600';
       text = 'Normal';
       break;
     case 'hard':
-      colorClass = 'bg-red-300';
-      textColor = 'text-red-700';
+      colorClass = 'bg-red-100';
+      textColor = 'text-red-600';
       text = 'Hard';
       break;
     default:
@@ -34,10 +34,10 @@ const DifficultyIndicator: React.FC<DifficultyIndicatorProps> = ({
 
   return (
     <div
-      className={`h-[100px] w-[100px] flex flex-col items-center justify-center rounded-3xl ${colorClass}`}
+      className={`h-[100px] w-[100px] flex flex-col items-center justify-center rounded-xl ${colorClass}`}
     >
       <BsPersonWorkspace size={40} className={`${textColor}`} />
-      <span className={`${textColor} font-bold`}>{text}</span>
+      <span className={`${textColor} font-medium`}>{text}</span>
     </div>
   );
 };

@@ -8,14 +8,15 @@ import React from 'react';
 
 type Props = {
   recipe: Recipe;
+  className: string;
 };
 
-const MainContent = ({ recipe }: Props) => {
-  const { user, isAuthenticated, userId } = useAuth();
-  const [isFavorite, toggleFavorite] = useSave(userId, recipe.id);
-
+const FaveRecipe = ({ recipe, className }: Props) => {
+  const { user, isAuthenticated } = useAuth();
+  const [isFavorite, toggleFavorite] = useSave(user?.uid, recipe.id);
+  console.log(isFavorite);
   return (
-    <div>
+    <div className={className}>
       <SaveButton
         onClick={toggleFavorite}
         saved={isFavorite}
@@ -25,4 +26,4 @@ const MainContent = ({ recipe }: Props) => {
   );
 };
 
-export default MainContent;
+export default FaveRecipe;
