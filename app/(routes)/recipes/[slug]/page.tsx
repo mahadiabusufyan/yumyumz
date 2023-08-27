@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import DifficultyIndicator from '@/components/Common/DifficultyIndicator';
 import Header from '@/components/Layout/Header';
 import Image from 'next/image';
@@ -8,6 +9,7 @@ import MainContent from '../components/MainContent';
 import Footer from '@/components/Layout/Footer';
 import getPostedBy, { getRecipeBySlug } from '@/app/actions';
 import RecipeHeader from '../components/RecipeHeader';
+import Carousel from '@/components/Common/Carousel';
 
 interface IParams {
   slug?: string;
@@ -45,13 +47,18 @@ const RecipePage = async ({ params }: { params: IParams }) => {
       <Header />
       <div className="max-w-5xl mx-auto flex flex-col items-center justify-center px-3">
         <RecipeHeader recipe={recipe} postedBy={postedBy} />
-        <Image
-          src={recipe.data.imgUrls[0]}
-          alt="Loading.."
-          width={1000}
-          height={1000}
-          className="h-[250px] lg:h-[500px] rounded-3xl object-cover"
-        />
+        <Carousel mrItem="mr-5" classes="mb-7 md:mb-9">
+          {recipe.data.imgUrls.map((image, i) => (
+            <img
+              src={image}
+              alt={recipe.data.title}
+              className="inline-block aspect-[3/2] w-[300px] rounded-lg object-cover md:w-[400px] md:rounded-xl xl:w-[480px]"
+              width={2000}
+              height={1000}
+              key={`image-${i}`}
+            />
+          ))}
+        </Carousel>
         <div className="mt-5 flex items-center justify-start gap-3">
           <div className="h-[100px] bg-green-100 w-[100px] flex flex-col items-center justify-center rounded-3xl">
             <BsClock size={40} className="text-green-500" />
