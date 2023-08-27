@@ -16,16 +16,9 @@ const Logo: FC<LogoProps> = ({ className }) => {
           className
         )}
       >
-        <div className="mr-2">
+        <div className="mr-1">
           {' '}
-          <IoFastFoodOutline
-            size={30}
-            className="group-hover:hidden transition duration-300"
-          />
-          <IoFastFoodSharp
-            size={30}
-            className="group-hover:inline-flex hidden text-secondary"
-          />
+          <IoFastFoodOutline size={30} className=" transition duration-300" />
         </div>
         <span className="text-secondary group-hover:text-black transition-all duration-300">
           yum

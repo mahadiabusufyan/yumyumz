@@ -13,13 +13,13 @@ type Props = {
 
 const FaveRecipe = ({ recipe, className }: Props) => {
   const { user, isAuthenticated } = useAuth();
-  const [isFavorite, toggleFavorite] = useSave(user?.uid, recipe.id);
-  console.log(isFavorite);
+  const [saved, toggleSaved] = useSave(user?.uid, recipe.id);
+  console.log(saved);
   return (
     <div className={className}>
       <SaveButton
-        onClick={toggleFavorite}
-        saved={isFavorite}
+        onClick={toggleSaved}
+        saved={saved}
         isAuthenticated={isAuthenticated}
       />
     </div>

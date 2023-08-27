@@ -16,7 +16,7 @@ const SaveButton: React.FC<Props> = ({ onClick, saved, isAuthenticated }) => {
         await onClick();
       }
     } else {
-      router.push('/login');
+      router.push('/auth/login');
     }
   };
   console.log(saved);
@@ -48,21 +48,6 @@ const SaveButton: React.FC<Props> = ({ onClick, saved, isAuthenticated }) => {
         </div>
       )}
     </div>
-    // <button
-    //   onClick={handleClick}
-    //   onMouseEnter={() => setIsHovering(true)}
-    //   onMouseLeave={() => setIsHovering(false)}
-    //   className=" relative hover:opacity-80 transition cursor-pointer"
-    // >
-    //   <AiOutlineHeart
-    //     size={32}
-    //     className="fill-white absolute -top-[2px] -right-[2px]"
-    //   />
-    //   <AiFillHeart
-    //     size={28}
-    //     className={saved ? 'fill-red-500' : 'fill-gray-600/60'}
-    //   />
-    // </button>
   );
 };
 

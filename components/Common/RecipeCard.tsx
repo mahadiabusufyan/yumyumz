@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BsClock, BsStar } from 'react-icons/bs';
 import SmallDifficultyIndicator from './SmallDifficultyIndicator';
+import SaveButton from './SaveButton';
+import useSave from '@/hooks/useSave';
 
 type Props = {
   recipe: Recipe;
@@ -16,6 +18,8 @@ export default function PropertySearchItem({
   onDelete,
   onEdit,
 }: Props) {
+  const { user, isAuthenticated } = useAuth();
+  const [saved, toggleSaved] = useSave(user?.uid, recipe.id);
   return (
     <article className="flex flex-col w-full ">
       <div className="relative w-full rounded-2xl">
@@ -31,6 +35,13 @@ export default function PropertySearchItem({
               />
             </div>
           </Link>
+        </div>
+        <div className="absolute top-3 right-3">
+          <SaveButton
+            onClick={toggleSaved}
+            saved={saved}
+            isAuthenticated={isAuthenticated}
+          />
         </div>
       </div>
       <div>

@@ -119,7 +119,7 @@ const BrowseRecipes = (props: Props) => {
         </div>
         <div className="w-full flex items-center justify-center h-auto">
           {loading ? (
-            <div className="h-[200px] w-full flex items-center justify-center">
+            <div className="h-[100px] w-full flex items-center justify-center">
               <BigLoader />
             </div>
           ) : (

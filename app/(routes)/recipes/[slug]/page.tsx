@@ -10,6 +10,7 @@ import RecipeHeader from '../components/RecipeHeader';
 import Carousel from '@/components/Common/Carousel';
 import ShareRecipe from '@/components/Common/ShareRecipe';
 import FaveRecipe from '../components/FaveRecipe';
+import Heading from '@/components/Common/Heading';
 
 interface IParams {
   slug?: string;
@@ -22,8 +23,6 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
   const recipe = await getRecipeBySlug(params);
   const title = recipe?.data.title || '';
-
-  // Capitalize the first letter of each word
   const words = title.toLowerCase().split(' ');
   const capitalizedWords = words.map(
     (word) => word.charAt(0).toUpperCase() + word.slice(1)
@@ -45,7 +44,7 @@ const RecipePage = async ({ params }: { params: IParams }) => {
   return (
     <main>
       <Header />
-      <div className="max-w-5xl mx-auto  px-3">
+      <div className="max-w-5xl mx-auto px-3">
         <div className="flex flex-col items-center justify-center">
           {' '}
           <RecipeHeader recipe={recipe} postedBy={postedBy} />
@@ -68,10 +67,8 @@ const RecipePage = async ({ params }: { params: IParams }) => {
         </div>
         <ShareRecipe recipe={recipe} />
 
-        <div className="mt-5 gap-3">
-          <h3 className="text-xl lg:text-3xl font-bold text-secondary mb-3">
-            Details
-          </h3>
+        <div className="mt-10 gap-3">
+          <Heading title={'Details'} />
           <div className="mt-5 flex items-center justify-start gap-5">
             {' '}
             <div className="h-[100px] bg-green-100 w-[100px] flex flex-col items-center justify-center rounded-xl">
@@ -85,13 +82,11 @@ const RecipePage = async ({ params }: { params: IParams }) => {
             )}
           </div>
         </div>
-        <div className="text-lg lg:text-xl gap-5">
-          <h3 className="text-xl lg:text-3xl font-bold text-secondary mb-3">
-            Instructions
-          </h3>
+        <div className="text-lg lg:text-xl gap-5 mt-10">
+          <Heading title={'Instructions'} />
           {recipe.data.instructions && (
             <div
-              className="prose prose-blue max-w-full"
+              className="prose prose-blue max-w-full mt-5"
               dangerouslySetInnerHTML={{ __html: recipe.data.instructions }}
             />
           )}
