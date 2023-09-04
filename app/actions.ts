@@ -49,7 +49,7 @@ export async function getRecipeBySlug(params: IParams) {
   try {
     const { slug } = params;
 
-    const recipesCollectionRef = collection(db, 'recipes'); // Assuming 'db' is your Firestore instance
+    const recipesCollectionRef = collection(db, 'recipes');
     const querySnapshot = await getDocs(
       query(recipesCollectionRef, where('slug', '==', slug))
     );
@@ -58,7 +58,7 @@ export async function getRecipeBySlug(params: IParams) {
       return null;
     }
 
-    const recipeDoc = querySnapshot.docs[0]; // Assuming you're only expecting one recipe per slug
+    const recipeDoc = querySnapshot.docs[0];
 
     const recipe = {
       id: recipeDoc.id,

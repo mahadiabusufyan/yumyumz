@@ -100,52 +100,19 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <>
-      <div
-        className="
-          justify-center 
-          items-center 
-          flex 
-          overflow-x-hidden 
-          overflow-y-auto 
-          fixed 
-          inset-0 
-          z-[100] 
-          outline-none 
-          focus:outline-none
-          bg-gray-100/70
-        "
-      >
+      <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-[100] outline-none focus:outline-none bg-gray-100/70">
         <div
           className="relative w-full lg:w-[50%] my-5 mx-auto h-full lg:h-auto  modal-content
           "
         >
           {/*content*/}
           <div
-            className={`
-            translate
-            duration-300
-            h-full
-            ${showModal ? 'translate-y-0' : 'translate-y-full'}
-            ${showModal ? 'opacity-100' : 'opacity-0'}
-          `}
+            className={`translate duration-300 h-full ${
+              showModal ? 'translate-y-0' : 'translate-y-[-100%]'
+            } ${showModal ? 'opacity-100' : 'opacity-0'}
+        `}
           >
-            <div
-              className="
-              translate
-              h-full
-              lg:h-auto
-              border-0 
-              lg:rounded-3xl
-              drop-shadow-lg 
-              relative 
-              flex 
-              flex-col 
-              w-full 
-              bg-white 
-              outline-none 
-              focus:outline-none
-            "
-            >
+            <div className=" translate h-full lg:h-auto border-0 lg:rounded-3xl drop-shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
               {/*header*/}
               <div
                 className="

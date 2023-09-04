@@ -1,10 +1,13 @@
 'use client';
 
 import { Recipe } from '@/types';
+import { BiLogoFacebook } from 'react-icons/bi';
 import {
   BsFacebook,
   BsLinkedin,
   BsPinterest,
+  BsShare,
+  BsShareFill,
   BsTwitter,
   BsWhatsapp,
 } from 'react-icons/bs';
@@ -28,7 +31,7 @@ const ShareRecipe = ({ recipe }: ShareRecipeProps) => {
 
   const shareOnTwitter = () => {
     const additionalText = 'Check out this recipe: ';
-    const recipeLink = `yumyumz.vercel.app/recipes//recipes/${recipe.id}`;
+    const recipeLink = `yumyumz.vercel.app/recipes//recipes/${recipe.data.slug}`;
     const recipeDesc = `${recipe.data.title}`;
     const tweetText = `${additionalText}${recipeDesc} ${recipeLink}`;
     const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
@@ -39,7 +42,7 @@ const ShareRecipe = ({ recipe }: ShareRecipeProps) => {
 
   const shareOnPinterest = () => {
     // Additional text and link
-    const recipeLink = `yumyumz.vercel.app/recipes//recipes/${recipe.id}`;
+    const recipeLink = `yumyumz.vercel.app/recipes//recipes/${recipe.data.slug}`;
 
     // Create the Pinterest sharing URL by encoding the recipe URL, image URL, and description
     const pinterestShareUrl = `https://www.pinterest.com/pin/create/button/?url=${encodeURIComponent(
@@ -54,7 +57,7 @@ const ShareRecipe = ({ recipe }: ShareRecipeProps) => {
 
   const shareOnLinkedIn = () => {
     // Additional text and link
-    const recipeLink = `yumyumz.vercel.app/recipes//recipes/${recipe.id}`;
+    const recipeLink = `yumyumz.vercel.app/recipes//recipes/${recipe.data.slug}`;
 
     // Create the LinkedIn sharing URL by encoding the recipe URL
     const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
@@ -66,43 +69,52 @@ const ShareRecipe = ({ recipe }: ShareRecipeProps) => {
   };
 
   const shareOnWhatsApp = () => {
-    const recipeLink = `yumyumz.vercel.app/recipes//recipes/${recipe.id}`;
+    const recipeLink = `yumyumz.vercel.app/recipes//recipes/${recipe.data.slug}`;
     const whatsappShareUrl = `https://wa.me/?text=${encodeURIComponent(
       recipeLink
     )}`;
     window.open(whatsappShareUrl, '_blank');
   };
   return (
-    <div className="flex items-center gap-5 text-[#013737] text-xs w-full">
+    <div className="flex items-center gap-3 text-xs w-full">
+      <div className="text-sm flex items-center justify-center p-2 px-3 rounded-full border">
+        <BsShareFill size={10} className="mr-1" />{' '}
+        <span className="hidden md:inline-flex">Share</span>
+      </div>
       <button
-        className="flex items-center justify-start text-lg transform hover:scale-105 transition duration-300"
+        className="text-sm flex items-center justify-center p-2 px-3 rounded-full border bg-[#31426D] text-white transform hover:scale-105 transition duration-300"
         onClick={shareOnFacebook}
       >
-        <BsFacebook size={25} className="mr-2 text-[#013737]" />
+        <BiLogoFacebook size={15} className="md:mr-2" />{' '}
+        <span className="hidden md:inline-flex">Facebook</span>
       </button>
       <button
-        className="flex items-center justify-start text-lg transform hover:scale-105 transition duration-300"
+        className="text-sm flex items-center justify-center p-2 px-3 rounded-full border bg-[#1E9CEA] text-white transform hover:scale-105 transition duration-300"
         onClick={shareOnTwitter}
       >
-        <BsTwitter size={25} className="mr-2 text-[#013737]" />
+        <BsTwitter size={15} className="md:mr-2" />{' '}
+        <span className="hidden md:inline-flex">Twitter</span>
       </button>
       <button
-        className="flex items-center justify-start text-lg transform hover:scale-105 transition duration-300"
+        className="text-sm flex items-center justify-center p-2 px-3 rounded-full border bg-[#DE0322] text-white transform hover:scale-105 transition duration-300"
         onClick={shareOnPinterest}
       >
-        <BsPinterest size={25} className="mr-2 text-[#013737]" />
+        <BsPinterest size={15} className="md:mr-2" />{' '}
+        <span className="hidden md:inline-flex">Pinterest</span>
       </button>
       <button
-        className="flex items-center justify-start text-lg transform hover:scale-105 transition duration-300"
+        className="text-sm flex items-center justify-center p-2 px-3 rounded-full border bg-[#0173AF] text-white transform hover:scale-105 transition duration-300"
         onClick={shareOnLinkedIn}
       >
-        <BsLinkedin size={25} className="mr-2 text-[#013737]" />
+        <BsLinkedin size={15} className="md:mr-2" />{' '}
+        <span className="hidden md:inline-flex">LinkedIn</span>
       </button>
       <button
-        className="flex items-center justify-start text-lg transform hover:scale-105 transition duration-300"
+        className="text-sm flex items-center justify-center p-2 px-3 rounded-full border bg-[#2CD065] text-white transform hover:scale-105 transition duration-300"
         onClick={shareOnWhatsApp}
       >
-        <BsWhatsapp size={25} className="mr-2 text-[#013737]" />
+        <BsWhatsapp size={15} className="md:mr-2" />
+        <span className="hidden md:inline-flex">WhatsApp</span>
       </button>
     </div>
   );
