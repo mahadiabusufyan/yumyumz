@@ -8,7 +8,7 @@ interface TooltipProps {
 
 const Tooltip: React.FC<TooltipProps> = ({ id, content }) => {
   const tooltipStyle = {
-    backgroundColor: '#A0D8B3',
+    backgroundColor: '#ffa5a5',
     color: '#000000',
     borderRadius: '8px',
     padding: '8px 12px',
