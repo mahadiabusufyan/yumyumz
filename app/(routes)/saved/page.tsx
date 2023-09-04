@@ -110,7 +110,7 @@ const SavedRecipesPage = (props: Props) => {
             <div className="bg-white rounded-md container px-3 lg:px-0 ">
               <Heading
                 title={'My saved Recipes'}
-                subtitle="Recipes that have been saved"
+                subtitle="Recipes saved by me"
               />
               <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mt-5">
                 {saved.map((recipe) => {

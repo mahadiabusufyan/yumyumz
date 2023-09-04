@@ -1,10 +1,10 @@
 'use client';
 
-import SaveButton from '@/components/Common/SaveButton';
 import useAuth from '@/hooks/useAuth';
 import useSave from '@/hooks/useSave';
 import { Recipe } from '@/types';
 import React from 'react';
+import TextedSaveBtn from './TextedSaveBtn';
 
 type Props = {
   recipe: Recipe;
@@ -17,7 +17,7 @@ const FaveRecipe = ({ recipe, className }: Props) => {
   console.log(saved);
   return (
     <div className={className}>
-      <SaveButton
+      <TextedSaveBtn
         onClick={toggleSaved}
         saved={saved}
         isAuthenticated={isAuthenticated}

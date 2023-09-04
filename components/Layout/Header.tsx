@@ -7,10 +7,9 @@ import Logo from '../Common/Logo';
 import { useRouter } from 'next/navigation';
 import UserMenu from '../Common/UserMenu';
 import useAddRecipeModal from '@/hooks/useAddRecipeModal';
-import { AiOutlineHeart, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
 import Tooltip from '../Common/Tooltip';
-import { BsBookmark } from 'react-icons/bs';
-import { IoBookmark } from 'react-icons/io5';
+import { IoBookmarkOutline } from 'react-icons/io5';
 
 const Header = () => {
   const { isAuthenticated } = useAuth();
@@ -43,7 +42,7 @@ const Header = () => {
                   onClick={() => router.push('/saved')}
                   className="p-2.5 group hover:bg-gray-50 rounded-full transition duration-300"
                 >
-                  <IoBookmark
+                  <IoBookmarkOutline
                     size={20}
                     className={
                       'text-black group-hover:text-secondary transition duration-300'

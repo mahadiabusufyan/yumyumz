@@ -44,7 +44,7 @@ const RecipePage = async ({ params }: { params: IParams }) => {
   return (
     <main>
       <Header />
-      <div className="max-w-5xl mx-auto px-3">
+      <div className="container mx-auto px-3">
         <div className="flex flex-col items-center justify-center">
           {' '}
           <RecipeHeader recipe={recipe} postedBy={postedBy} />
@@ -65,49 +65,50 @@ const RecipePage = async ({ params }: { params: IParams }) => {
             <FaveRecipe recipe={recipe} className="absolute right-5 top-4" />
           </div>
         </div>
-        <ShareRecipe recipe={recipe} />
-
-        <div className="mt-10 gap-3">
-          <Heading title={'Details'} />
-          <div className="mt-5 grid grid-cols-3 sm:grid-cols-4 gap-2 md:grid-cols-5 lg:grid-cols-6">
-            {' '}
-            <div className="h-[150px] bg-green-100 w-[150px] flex flex-col items-center gap-2 justify-center rounded-xl">
-              <p className="text-xs uppercase font-bold text-green-800">
-                Cook Time
-              </p>
-              <IoMdTimer size={40} className="text-green-500" />
-              <span className="text-green-700">
-                {recipe.data.cookingTime} min
-              </span>
+        <div className="max-w-5xl mx-auto">
+          <ShareRecipe recipe={recipe} />
+          <div className="mt-10 gap-3">
+            <Heading title={'Details'} />
+            <div className="mt-5 grid grid-cols-3 sm:grid-cols-4 gap-2 md:grid-cols-5 lg:grid-cols-6">
+              {' '}
+              <div className="h-[150px] bg-green-100 w-[150px] flex flex-col items-center gap-2 justify-center rounded-xl">
+                <p className="text-xs uppercase font-bold text-green-800">
+                  Cook Time
+                </p>
+                <IoMdTimer size={40} className="text-green-500" />
+                <span className="text-green-700">
+                  {recipe.data.cookingTime} min
+                </span>
+              </div>
+              {recipe.data.difficulty && (
+                <DifficultyIndicator difficulty={recipe.data.difficulty} />
+              )}
             </div>
-            {recipe.data.difficulty && (
-              <DifficultyIndicator difficulty={recipe.data.difficulty} />
+          </div>
+          <div className="text-lg lg:text-xl gap-5 mt-10">
+            <Heading title={'Ingredients'} />
+            <ul className="flex flex-col items-start mt-5">
+              {recipe.data.ingredients?.map((ingredient) => {
+                return (
+                  <li
+                    key={ingredient}
+                    className="capitalize tracking-wide text-gray-700"
+                  >
+                    {ingredient}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <div className="text-lg lg:text-xl gap-5 mt-10">
+            <Heading title={'Instructions'} />
+            {recipe.data.instructions && (
+              <div
+                className="prose prose-blue max-w-full mt-5 tracking-wide text-gray-700 capitalize"
+                dangerouslySetInnerHTML={{ __html: recipe.data.instructions }}
+              />
             )}
           </div>
-        </div>
-        <div className="text-lg lg:text-xl gap-5 mt-10">
-          <Heading title={'Ingredients'} />
-          <ul className="flex flex-col items-start mt-5">
-            {recipe.data.ingredients?.map((ingredient) => {
-              return (
-                <li
-                  key={ingredient}
-                  className="capitalize tracking-wide text-gray-700"
-                >
-                  {ingredient}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div className="text-lg lg:text-xl gap-5 mt-10">
-          <Heading title={'Instructions'} />
-          {recipe.data.instructions && (
-            <div
-              className="prose prose-blue max-w-full mt-5 tracking-wide text-gray-700 capitalize"
-              dangerouslySetInnerHTML={{ __html: recipe.data.instructions }}
-            />
-          )}
         </div>
       </div>
       <Footer />
