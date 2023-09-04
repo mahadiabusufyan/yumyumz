@@ -20,6 +20,7 @@ import {
 import { db } from '@/lib/firebase';
 import RecipeCard from '@/components/Common/RecipeCard';
 import Heading from '@/components/Common/Heading';
+import BigLoader from '@/components/Common/BigLoader';
 
 type Props = {};
 
@@ -98,31 +99,43 @@ const SavedRecipesPage = (props: Props) => {
   return (
     <main>
       <Header />
-
-      {saved.length > 0 ? (
-        <div className="bg-white rounded-md container px-3 lg:px-0 ">
-          <Heading
-            title={'My saved Recipes'}
-            subtitle="Recipes that have been saved"
-          />
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mt-5">
-            {saved.map((recipe) => {
-              return <RecipeCard key={recipe.id} recipe={recipe} />;
-            })}
-          </div>
+      {loading ? (
+        <div className="flex items-center justify-center w-full h-[50vh]">
+          <BigLoader />
         </div>
       ) : (
-        <div className="bg-white rounded-md container px-3 lg:px-0 flex flex-col items-center justify-center h-[70vh]">
-          <Lottie
-            style={{ height: animationHeight }}
-            animationData={ingredients}
-            loop={true}
-          />
-          <div className="mt-10 w-full flex items-center justify-center">
-            <Button onClick={() => router.push('/')} label={'Browse recipes'} />
-          </div>
-        </div>
+        <>
+          {' '}
+          {saved.length > 0 ? (
+            <div className="bg-white rounded-md container px-3 lg:px-0 ">
+              <Heading
+                title={'My saved Recipes'}
+                subtitle="Recipes that have been saved"
+              />
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mt-5">
+                {saved.map((recipe) => {
+                  return <RecipeCard key={recipe.id} recipe={recipe} />;
+                })}
+              </div>
+            </div>
+          ) : (
+            <div className="bg-white rounded-md container px-3 lg:px-0 flex flex-col items-center justify-center h-[70vh]">
+              <Lottie
+                style={{ height: animationHeight }}
+                animationData={ingredients}
+                loop={true}
+              />
+              <div className="mt-10 w-full flex items-center justify-center">
+                <Button
+                  onClick={() => router.push('/')}
+                  label={'Browse recipes'}
+                />
+              </div>
+            </div>
+          )}
+        </>
       )}
+
       <Footer />
     </main>
   );

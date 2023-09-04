@@ -24,7 +24,7 @@ export default function Carousel({ mrItem, classes, children }: CarouselProps) {
     <div className={`relative ${classes}`}>
       <div
         ref={carouselRef}
-        className="no-scrollbar px-container-sm w-screen overflow-y-hidden overflow-x-scroll scroll-smooth whitespace-nowrap"
+        className="scrollbar-none w-screen overflow-y-hidden overflow-x-scroll scroll-smooth whitespace-nowrap"
       >
         {children.map((child, i) => (
           <div

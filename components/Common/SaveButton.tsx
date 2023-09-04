@@ -1,6 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { BiBookmarkMinus, BiBookmarkPlus } from 'react-icons/bi';
-import Tooltip from './Tooltip';
+import { IoBookmark, IoBookmarkOutline } from 'react-icons/io5';
 
 interface Props {
   onClick: boolean | (() => Promise<void>);
@@ -21,33 +20,23 @@ const SaveButton: React.FC<Props> = ({ onClick, saved, isAuthenticated }) => {
   };
   console.log(saved);
   return (
-    <div>
-      {saved ? (
-        <div>
-          {' '}
-          <button
-            data-tooltip-id="remove"
-            onClick={handleClick}
-            className="bg-white p-2 rounded-lg"
-          >
-            <BiBookmarkMinus size={20} />
-          </button>
-          <Tooltip id={'remove'} content={'Remove'} />
-        </div>
-      ) : (
-        <div>
-          {' '}
-          <button
-            data-tooltip-id="save"
-            onClick={handleClick}
-            className="bg-white p-2 rounded-lg"
-          >
-            <BiBookmarkPlus size={20} className={``} />
-          </button>
-          <Tooltip id={'save'} content={'Save'} />
-        </div>
-      )}
-    </div>
+    <button
+      onClick={handleClick}
+      className="flex items-center cursor-pointer uppercase text-xs text-gray-600 tracking-wide"
+    >
+      {' '}
+      <div className=" relative hover:opacity-80 transition ">
+        <IoBookmarkOutline
+          size={28}
+          className="fill-white absolute -top-[2px] -right-[2px]"
+        />
+        <IoBookmark
+          size={24}
+          className={saved ? 'fill-primary' : 'fill-white/70'}
+        />{' '}
+      </div>
+      {/* <span className="ml-2">Save</span> */}
+    </button>
   );
 };
 

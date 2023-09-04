@@ -19,7 +19,7 @@ export default function PropertySearchItem({
   onEdit,
 }: Props) {
   const { user, isAuthenticated } = useAuth();
-  const [saved, toggleSaved] = useSave(user?.uid, recipe.id);
+  const [isSaved, toggleSaved] = useSave(user?.uid, recipe.id);
   return (
     <article className="flex flex-col w-full ">
       <div className="relative w-full rounded-2xl">
@@ -39,7 +39,7 @@ export default function PropertySearchItem({
         <div className="absolute top-3 right-3">
           <SaveButton
             onClick={toggleSaved}
-            saved={saved}
+            saved={isSaved}
             isAuthenticated={isAuthenticated}
           />
         </div>

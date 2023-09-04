@@ -11,6 +11,7 @@ import Carousel from '@/components/Common/Carousel';
 import ShareRecipe from '@/components/Common/ShareRecipe';
 import FaveRecipe from '../components/FaveRecipe';
 import Heading from '@/components/Common/Heading';
+import { IoMdTimer } from 'react-icons/io';
 
 interface IParams {
   slug?: string;
@@ -69,10 +70,13 @@ const RecipePage = async ({ params }: { params: IParams }) => {
 
         <div className="mt-10 gap-3">
           <Heading title={'Details'} />
-          <div className="mt-5 flex items-center justify-start gap-5">
+          <div className="mt-5 grid grid-cols-3 sm:grid-cols-4 gap-2 md:grid-cols-5 lg:grid-cols-6">
             {' '}
-            <div className="h-[100px] bg-green-100 w-[100px] flex flex-col items-center justify-center rounded-xl">
-              <BsClock size={40} className="text-green-500" />
+            <div className="h-[150px] bg-green-100 w-[150px] flex flex-col items-center gap-2 justify-center rounded-xl">
+              <p className="text-xs uppercase font-bold text-green-800">
+                Cook Time
+              </p>
+              <IoMdTimer size={40} className="text-green-500" />
               <span className="text-green-700">
                 {recipe.data.cookingTime} min
               </span>

@@ -5,8 +5,8 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 // import { toast } from '@/components/Toaster/UseToast';
 
-const useSave = (userId: string | undefined, recipeId: string) => {
-  const [saved, setSaved] = useState(false);
+const useSaved = (userId: string | undefined, recipeId: string) => {
+  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     const checkFavorite = async () => {
@@ -15,7 +15,7 @@ const useSave = (userId: string | undefined, recipeId: string) => {
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
           const saved = userDoc.data()?.saved || [];
-          setSaved(saved.includes(recipeId));
+          setIsSaved(saved.includes(recipeId));
         }
       }
     };
@@ -29,20 +29,21 @@ const useSave = (userId: string | undefined, recipeId: string) => {
       const userDoc = await getDoc(userDocRef);
       if (userDoc.exists()) {
         const saved = userDoc.data()?.saved || [];
-        if (saved) {
+        if (isSaved) {
+          // Remove the favorite
           const newSaved = saved.filter((id: string) => id !== recipeId);
           await updateDoc(userDocRef, { saved: newSaved });
-          setSaved(false);
+          setIsSaved(false);
           // toast({
           //   title: 'Removed',
           //   description: 'Listing removed',
           //   variant: 'destructive',
           // });
         } else {
-          // Add the saved
+          // Add the favorite
           const newSaved = [...saved, recipeId];
           await updateDoc(userDocRef, { saved: newSaved });
-          setSaved(true);
+          setIsSaved(true);
           // toast({
           //   title: 'Added',
           //   description: 'Listing added',
@@ -55,7 +56,7 @@ const useSave = (userId: string | undefined, recipeId: string) => {
     }
   };
 
-  return [saved, toggleSaved];
+  return [isSaved, toggleSaved];
 };
 
-export default useSave;
+export default useSaved;
