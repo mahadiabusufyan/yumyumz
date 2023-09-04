@@ -115,7 +115,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         await setDoc(userDoc, userDetails);
         router.push('/');
         setUser(user);
-        await sendEmailVerification(user);
         setLoading(false);
       } else {
         throw new Error('User is not signed in');
