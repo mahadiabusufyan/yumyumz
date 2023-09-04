@@ -2,7 +2,6 @@
 import DifficultyIndicator from '@/components/Common/DifficultyIndicator';
 import Header from '@/components/Layout/Header';
 import React from 'react';
-import { BsClock } from 'react-icons/bs';
 import { Metadata } from 'next';
 import Footer from '@/components/Layout/Footer';
 import getPostedBy, { getRecipeBySlug } from '@/app/actions';
@@ -87,10 +86,25 @@ const RecipePage = async ({ params }: { params: IParams }) => {
           </div>
         </div>
         <div className="text-lg lg:text-xl gap-5 mt-10">
+          <Heading title={'Ingredients'} />
+          <ul className="flex flex-col items-start mt-5">
+            {recipe.data.ingredients?.map((ingredient) => {
+              return (
+                <li
+                  key={ingredient}
+                  className="capitalize tracking-wide text-gray-700"
+                >
+                  {ingredient}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="text-lg lg:text-xl gap-5 mt-10">
           <Heading title={'Instructions'} />
           {recipe.data.instructions && (
             <div
-              className="prose prose-blue max-w-full mt-5"
+              className="prose prose-blue max-w-full mt-5 tracking-wide text-gray-700 capitalize"
               dangerouslySetInnerHTML={{ __html: recipe.data.instructions }}
             />
           )}

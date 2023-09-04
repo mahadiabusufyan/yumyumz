@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsPersonWorkspace } from 'react-icons/bs';
+import { BsFire } from 'react-icons/bs';
 
 interface SmallDifficultyIndicatorProps {
   difficulty: string;
@@ -34,7 +34,7 @@ const SmallDifficultyIndicator: React.FC<SmallDifficultyIndicatorProps> = ({
 
   return (
     <div className={`flex items-center justify-center`}>
-      <BsPersonWorkspace size={15} className={`${textColor} mr-2`} />
+      <BsFire size={15} className={`${textColor} mr-2`} />
       <span className={`${textColor} font-medium`}>{text}</span>
     </div>
   );

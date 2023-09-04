@@ -2,10 +2,10 @@ import useAuth from '@/hooks/useAuth';
 import { Recipe } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BsClock, BsStar } from 'react-icons/bs';
 import SmallDifficultyIndicator from './SmallDifficultyIndicator';
 import SaveButton from './SaveButton';
 import useSave from '@/hooks/useSave';
+import { IoMdTimer } from 'react-icons/io';
 
 type Props = {
   recipe: Recipe;
@@ -21,8 +21,8 @@ export default function PropertySearchItem({
   const { user, isAuthenticated } = useAuth();
   const [isSaved, toggleSaved] = useSave(user?.uid, recipe.id);
   return (
-    <article className="flex flex-col w-full ">
-      <div className="relative w-full rounded-2xl">
+    <article className="flex flex-col w-full">
+      <div className="relative w-full rounded-2xl h-[260px] md:h-[210px] lg:h-[160px]">
         <div className="h-full w-full relative rounded-2xl overflow-hidden">
           <Link href={`/recipes/${recipe.data.slug}`}>
             <div className="aspect-video w-full flex items-center justify-center rounded">
@@ -30,7 +30,7 @@ export default function PropertySearchItem({
                 height={200}
                 width={200}
                 src={recipe.data.imgUrls[0]}
-                className="rounded-2xl w-full h-[260px] md:h-[210px] lg:h-[160px] object-cover"
+                className="rounded-2xl w-full h-full object-cover"
                 alt="Loading..."
               />
             </div>
@@ -55,7 +55,7 @@ export default function PropertySearchItem({
           </div> */}
           <div className="flex items-center gap-3">
             <div className="flex items-center justify-center">
-              <BsClock size={15} className="text-green-500 mr-2" />
+              <IoMdTimer size={15} className="text-green-500 mr-2" />
               <span className="text-sm font-medium">
                 {recipe.data.cookingTime} min
               </span>
