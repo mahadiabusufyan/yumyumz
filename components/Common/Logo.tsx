@@ -12,18 +12,22 @@ const Logo: FC<LogoProps> = ({ className }) => {
     <Link href={'/'}>
       <div
         className={clsx(
-          'text-xl md:text-2xl font-bold cursor-pointer transition-all duration-300 group flex items-center',
+          'text-2xl font-bold cursor-pointer transition-all duration-300 group flex items-center',
           className
         )}
       >
         <div className="mr-1">
           {' '}
-          <IoFastFoodOutline size={30} className=" transition duration-300" />
+          <IoFastFoodOutline
+            size={30}
+            className=" transition duration-300 hover:text-secondary md:hover:text-black"
+          />
         </div>
-        <span className="text-secondary group-hover:text-black transition-all duration-300">
+
+        <span className="text-secondary group-hover:text-black transition-all duration-300 hidden md:inline-flex">
           yum
         </span>
-        <span className="text-black group-hover:text-secondary transition-all duration-300">
+        <span className="text-black group-hover:text-secondary transition-all duration-300 hidden md:inline-flex">
           yumz
         </span>
       </div>
