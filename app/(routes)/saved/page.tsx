@@ -48,8 +48,8 @@ const SavedRecipesPage = (props: Props) => {
 
         const savedIds = userDoc.data()?.saved || [];
         const savedPromises = savedIds.map((id: string) => {
-          const listingRef = doc(db, 'recipes', id);
-          return getDoc(listingRef);
+          const recipeRef = doc(db, 'recipes', id);
+          return getDoc(recipeRef);
         });
         const savedDocs = await Promise.all(savedPromises);
         const savedRecipes: any = savedDocs
@@ -62,7 +62,7 @@ const SavedRecipesPage = (props: Props) => {
               data: doc.data(),
             };
           })
-          .filter((listing) => listing !== null);
+          .filter((recipe) => recipe !== null);
         setSaved(savedRecipes);
         setLoading(false);
       } catch (error) {

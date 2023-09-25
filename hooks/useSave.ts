@@ -36,7 +36,7 @@ const useSaved = (userId: string | undefined, recipeId: string) => {
           setIsSaved(false);
           // toast({
           //   title: 'Removed',
-          //   description: 'Listing removed',
+          //   description: 'Recipe removed',
           //   variant: 'destructive',
           // });
         } else {
@@ -46,7 +46,7 @@ const useSaved = (userId: string | undefined, recipeId: string) => {
           setIsSaved(true);
           // toast({
           //   title: 'Added',
-          //   description: 'Listing added',
+          //   description: 'Recipe added',
           //   variant: 'destructive',
           // });
         }
